@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "211240101748",
+    "project_id": "nasafebrurary",
+    "storage_bucket": "nasafebrurary.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:211240101748:android:a7ffe80a8dabf7dea02e21",
+        "android_client_info": {
+          "package_name": "com.geekbrains.februarymaterial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "211240101748-cvqkouiimn7v9gkkdop2jbtfo5ktcj9d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZTa9-IfJNmYqg-Ig7EoWYNiGqHrSqQmA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "211240101748-cvqkouiimn7v9gkkdop2jbtfo5ktcj9d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
