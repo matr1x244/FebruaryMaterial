@@ -13,8 +13,15 @@
         android:padding="5dp">
 
         <ScrollView
+            android:id="@+id/scrollView2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputLayout"
@@ -40,14 +47,57 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/cardView_main"
+            app:singleSelection="true"
+            tools:layout_editor_absoluteX="5dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/yesterdayChip"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Вчера"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/todayChip"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Сегодня"
+                    app:layout_constraintEnd_toStartOf="@+id/astronautChip"
+                    app:layout_constraintStart_toEndOf="@+id/yesterdayChip" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/astronautChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipIcon="@mipmap/ic_nasa_foreground"
+                    android:text="День Космонавта"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardView_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/transparent"
             app:cardCornerRadius="10dp"
-            app:cardElevation="10dp"
+            app:cardElevation="5dp"
             app:cardMaxElevation="10dp"
+            android:focusable="auto"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +107,15 @@
                 android:id="@+id/image_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="1dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"
                 android:contentDescription="@string/photo_of_the_day_stub"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -65,20 +123,19 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_no_photo_vector" />
 
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
-        <ProgressBar
+        <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progressBarMain"
-            style="@style/myProgressBar"
+            style="@style/myProgressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="gone"
+            android:indeterminate="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -87,14 +144,29 @@
         android:id="@+id/included_bsl"
         layout="@layout/bottom_sheet_layout" />
 
-<!--    <com.google.android.material.bottomappbar.BottomAppBar
+    <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_app_bar"
+        style="@style/myBottomAppBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="5dp"
+        android:fadeScrollbars="false"
+        app:fabCradleRoundedCornerRadius="10dp"
         app:fabAlignmentMode="center"
+        app:fabAnimationMode="slide"
         app:menu="@menu/menu_bottom_bar"
-        app:navigationIcon="@drawable/ic_hamburger_menu_bottom_bar" />-->
+        app:navigationIcon="@drawable/ic_hamburger_menu_bottom_bar" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:layout_anchor="@id/bottom_app_bar"
+        app:srcCompat="@drawable/ic_plus_fab" />
 
     <!--Если спрятать всё в группу-->
     <androidx.constraintlayout.widget.Group

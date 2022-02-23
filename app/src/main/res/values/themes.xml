@@ -3,7 +3,7 @@
     <style name="Theme.FebruaryMaterial" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
         <item name="android:statusBarColor">@color/black</item>
-        <item name="android:navigationBarColor">@color/red_500</item>
+        <item name="android:navigationBarColor">@color/black</item>
         <item name="colorPrimary">@color/red_600</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorPrimaryContainer">@color/red_100</item>
@@ -21,22 +21,40 @@
         <!--Стиль для кнопок-->
         <item name="materialButtonStyle">@style/myButtonStyle</item>
         <item name="bottomAppBarStyle">@style/myBottomAppBarStyle</item>
-        <item name="progressBarStyle">@style/myProgressBar</item>
+        <item name="progressBarStyle">@style/myProgressBarStyle</item>
+        <item name="floatingActionButtonStyle">@style/myFloatingActionButtonStyle</item>
+        <item name="cardViewStyle">@style/myCardViewStyle</item>
+        <item name="snackbarStyle">@style/mySnackBarStyle</item>
 
     </style>
     <!--myButtonStyle-->
     <style name="myButtonStyle" parent="Widget.MaterialComponents.Button"></style>
+
     <!--myFloatingActionButtonStyle-->
     <style name="myFloatingActionButtonStyle" parent="Widget.MaterialComponents.FloatingActionButton">
-        <item name="backgroundTint">@color/black</item>
+        <item name="backgroundTint">@color/red_600</item>
+        <item name="tint">@color/white</item>
     </style>
+
     <!--myBottomAppBarStyle-->
     <style name="myBottomAppBarStyle" parent="Widget.MaterialComponents.BottomAppBar">
-        <item name="backgroundTint">@color/red_600</item>
+        <item name="backgroundTint">@color/color_blue</item>
     </style>
-    <!--myProgressBar-->
-    <style name="myProgressBar" parent="Widget.AppCompat.ProgressBar">
-        <item name="backgroundColor">@color/color_gray</item>
+
+    <!--myProgressBarStyle-->
+    <style name="myProgressBarStyle" parent="Widget.MaterialComponents.CircularProgressIndicator">
+        <item name="indicatorColor">@color/color_blue</item>
     </style>
+
+    <!--myCardViewStyle-->
+    <style name="myCardViewStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/transparent</item>
+    </style>
+
+    <!--mySnackBarStyle-->
+    <style name="mySnackBarStyle" parent="Widget.MaterialComponents.Snackbar">
+        <item name="backgroundColor">@color/white</item>
+    </style>
+
 
 </resources>

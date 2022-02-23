@@ -5,19 +5,24 @@ import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import coil.load
+import com.geekbrains.februarymaterial.ExtensionFun.showSnackBarAction
 import com.geekbrains.februarymaterial.ExtensionFun.showSnackBarNoAction
 import com.geekbrains.februarymaterial.ExtensionFun.showToastShort
 import com.geekbrains.februarymaterial.R
 import com.geekbrains.februarymaterial.databinding.FragmentMainBinding
+import com.geekbrains.februarymaterial.view.MainActivity
+import com.geekbrains.februarymaterial.view.chips.ChipsFragment
+import com.geekbrains.februarymaterial.view.main.BottomNavigationDrawerFragment.BottomNavigationDrawerFragment
 import com.geekbrains.februarymaterial.viewmodel.PictureOfTheDayAppState
 import com.geekbrains.februarymaterial.viewmodel.PictureOfTheDayViewModel
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class PictureOfTheDayFragment : Fragment() {
@@ -41,45 +46,15 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        menuActionBar() /*Для menu and actionBar*/
+        bottomSheetBehavior() /*Для bottomSheetBehavior*/
+        fabClick() /*FloatActionButtonClick*/
+        chipsClick() /*Переключение дней*/
+        wikipediaSearch() /*Поиск wikipedia*/
+
         viewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderData(it) })
         viewModel.sendServerRequest()
-
-        /*Сетим в поиск введёный текст в поиск WIKIPEDIA*/
-        binding.inputLayout.setEndIconOnClickListener {
-            startActivity(Intent(Intent.ACTION_VIEW).apply {
-                data =
-                    Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
-                binding.mainLayout.showToastShort("Поехали искать ${binding.inputEditText.text.toString()}")
-            })
-        }
-
-        /*Выдвижная панель*/
-        bottomSheetBehavior = BottomSheetBehavior.from(binding.includedBsl.bottomSheetContainer)
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED // Задаем как выдвигать
-        bottomSheetBehavior.setPeekHeight(200,true) //Выдвигаем только на 200 вверх
-        bottomSheetBehavior.setHideable(false) //указываем можно скрыть или нет
-
-
-        /*Ловим как выдвигается состояния*/
-        bottomSheetBehavior.addBottomSheetCallback(object :
-            BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                when (newState) {
-                     /*НАДО ИЗУЧИТЬ ПРИ КАКИХ ДЕЙСТВИЯХ ЧТО БУДЕТ*/
-
-                    /*BottomSheetBehavior.STATE_DRAGGING -> TODO("not implemented")
-                    BottomSheetBehavior.STATE_COLLAPSED -> TODO("not implemented")
-                    BottomSheetBehavior.STATE_EXPANDED -> TODO("not implemented")
-                    BottomSheetBehavior.STATE_HALF_EXPANDED -> TODO("not implemented")
-                    BottomSheetBehavior.STATE_HIDDEN -> TODO("not implemented")
-                    BottomSheetBehavior.STATE_SETTLING -> TODO("not implemented")*/
-                }
-            }
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                Log.d("onSlide", "$slideOffset slideOffset")
-                binding.fragmentMain.showToastShort("$slideOffset")
-            }
-        })
 
     }
 
@@ -90,14 +65,15 @@ class PictureOfTheDayFragment : Fragment() {
                 binding.fragmentMain.visibility = View.GONE
                 binding.cardViewMain.visibility = View.INVISIBLE
                 binding.includedBsl.bottomSheetContainer.visibility = View.INVISIBLE
-                binding.fragmentMain.showSnackBarNoAction("Ошибка загрузки") // Хотелось бы получить ответ как заставить если ошибка перезапустить запрос, надо использовать showSnackBarAction, но не могу понять после текста как сделать :(
+                binding.fragmentMain.showSnackBarAction(getString(R.string.error_load), getString(R.string.reload)){
+                    viewModel.sendServerRequest()
+                }
             }
             is PictureOfTheDayAppState.Loading -> {
                 binding.progressBarMain.visibility = View.VISIBLE
                 binding.includedBsl.bottomSheetContainer.visibility = View.INVISIBLE
                 binding.cardViewMain.visibility = View.INVISIBLE
-                binding.fragmentMain.showSnackBarNoAction("Загружаем")
-                // TODO HW можно loaderbar
+                binding.fragmentMain.showSnackBarNoAction(getString(R.string.load))
             }
             is PictureOfTheDayAppState.Success -> {
                 binding.progressBarMain.visibility = View.GONE
@@ -118,10 +94,116 @@ class PictureOfTheDayFragment : Fragment() {
                 }
                 binding.imageView.visibility = View.VISIBLE
                 binding.cardViewMain.visibility = View.VISIBLE // тут когда перед тем как загружается картинка вначале пустой cardview и буквально меньше чем 1 сек прогружается картинка, как сделать синхронно?
-                binding.fragmentMain.showSnackBarNoAction("Успешно")
-                //  TODO HW Добавьте описание (приходит с сервера) под фотографией в виде BottomSheet. textview?
+                binding.fragmentMain.showSnackBarNoAction(getString(R.string.success))
             }
         }
+    }
+
+    /*Создаем меню*/
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_bottom_bar,menu)
+    }
+
+    /*обработка кликов в меню*/
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.app_bar_fav ->
+                Toast.makeText(requireContext(),"app_bar_fav",Toast.LENGTH_SHORT).show()
+            R.id.app_bar_settings ->
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.container_main_activity,
+                    ChipsFragment.newInstance()).addToBackStack("").commit()
+            android.R.id.home ->  {
+                BottomNavigationDrawerFragment().show(requireActivity().supportFragmentManager,"") //выдвигаем бургер меню
+            }
+            R.id.app_bar_search -> //Не работает
+                Toast.makeText(requireContext(),"работает поиск", Toast.LENGTH_LONG).show()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun menuActionBar(){
+        /*Для меню*/
+        setHasOptionsMenu(true) // запускаем menu
+        (requireActivity() as MainActivity).setSupportActionBar(binding.bottomAppBar) //кликабельность говорим где
+    }
+
+    private fun bottomSheetBehavior(){
+        /*Выдвижная панель*/
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.includedBsl.bottomSheetContainer)
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_SETTLING // Задаем как выдвигать
+        bottomSheetBehavior.setPeekHeight(450,true) //Выдвигаем только на 200 вверх
+        bottomSheetBehavior.setHideable(false) //указываем можно скрыть или нет
+
+        /*Ловим как выдвигается состояния*/
+        bottomSheetBehavior.addBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                when (newState) {
+                    /*НАДО ИЗУЧИТЬ ПРИ КАКИХ ДЕЙСТВИЯХ ЧТО БУДЕТ*/
+
+                    /*BottomSheetBehavior.STATE_DRAGGING -> TODO("not implemented")
+                    BottomSheetBehavior.STATE_COLLAPSED -> TODO("not implemented")
+                    BottomSheetBehavior.STATE_EXPANDED -> TODO("not implemented")
+                    BottomSheetBehavior.STATE_HALF_EXPANDED -> TODO("not implemented")
+                    BottomSheetBehavior.STATE_HIDDEN -> TODO("not implemented")
+                    BottomSheetBehavior.STATE_SETTLING -> TODO("not implemented")*/
+                }
+            }
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                Log.d("onSlide", "$slideOffset slideOffset")
+                binding.fragmentMain.showToastShort("$slideOffset")
+            }
+        })
+    }
+
+    /*FloatActionButtonClick*/
+    private fun fabClick(){
+        var isMainClick: Boolean = true
+
+        binding.fab.setOnClickListener{
+            if(isMainClick){
+                binding.bottomAppBar.navigationIcon = null // скрываем меню
+                binding.bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END // меняем положение кнопки (CENTER / END)
+                binding.fab.setImageDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.ic_back_fab)) // задаем другую иконку
+                binding.bottomAppBar.replaceMenu(R.menu.menu_bottom_bar_other_screen) // меняем меню
+            }else{
+                binding.bottomAppBar.navigationIcon = ContextCompat.getDrawable(requireContext(),R.drawable.ic_hamburger_menu_bottom_bar)
+                binding.bottomAppBar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
+                binding.fab.setImageDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.ic_plus_fab))
+                binding.bottomAppBar.replaceMenu(R.menu.menu_bottom_bar)
+            }
+            isMainClick = !isMainClick
+        }
+    }
+
+    private fun wikipediaSearch() {
+        /*Сетим в поиск введёный текст в поиск WIKIPEDIA*/
+        binding.inputLayout.setEndIconOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
+                binding.mainLayout.showToastShort("Поехали искать ${binding.inputEditText.text.toString()}")
+            })
+        }
+    }
+
+    private fun chipsClick() {
+        binding.astronautChip.setOnClickListener {
+            viewModel.sendServerAstronautDay()
+        }
+        binding.todayChip.setOnClickListener {
+            viewModel.sendServerRequest()
+        }
+        binding.yesterdayChip.setOnClickListener {
+            viewModel.sendServerYesterday()
+        }
+/*        *//*Кликабельность chips для group *//*
+        binding.chipGroup.setOnCheckedChangeListener{ group, checkedId ->
+            binding.chipGroup.findViewById<Chip>(checkedId)?.let{
+                //Toast.makeText(requireContext(),"chip $checkedId ${it.text}", Toast.LENGTH_SHORT).show()
+            }
+        }
+        */
     }
 
     override fun onDestroyView() {

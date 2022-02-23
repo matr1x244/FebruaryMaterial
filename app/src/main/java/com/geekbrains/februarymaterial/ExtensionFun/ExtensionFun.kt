@@ -29,6 +29,7 @@ fun View.showSnackBarAction(
 fun View.showSnackBarNoAction(
     text: String,
     length: Int = Snackbar.LENGTH_SHORT)
+
 {
     Snackbar.make(this, text, length).show()
 }
