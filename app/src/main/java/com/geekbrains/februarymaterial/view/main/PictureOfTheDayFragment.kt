@@ -1,5 +1,6 @@
 package com.geekbrains.februarymaterial.view.main
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
@@ -7,6 +8,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -25,12 +28,12 @@ import com.geekbrains.februarymaterial.viewmodel.PictureOfTheDayViewModel
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
+
 class PictureOfTheDayFragment : Fragment() {
 
     companion object {
         fun newInstance() = PictureOfTheDayFragment()
     }
-
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
@@ -55,8 +58,8 @@ class PictureOfTheDayFragment : Fragment() {
 
         viewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderData(it) })
         viewModel.sendServerRequest()
-
     }
+
 
     private fun renderData(pictureOfTheDayAppState: PictureOfTheDayAppState) {
         when (pictureOfTheDayAppState) {
@@ -92,8 +95,9 @@ class PictureOfTheDayFragment : Fragment() {
                         data = Uri.parse(pictureOfTheDayAppState.serverResponseData.url)
                     })
                 }
+                binding.textViewDate.text = pictureOfTheDayAppState.serverResponseData.date
                 binding.imageView.visibility = View.VISIBLE
-                binding.cardViewMain.visibility = View.VISIBLE // тут когда перед тем как загружается картинка вначале пустой cardview и буквально меньше чем 1 сек прогружается картинка, как сделать синхронно?
+                binding.cardViewMain.visibility = View.VISIBLE
                 binding.fragmentMain.showSnackBarNoAction(getString(R.string.success))
             }
         }
@@ -111,13 +115,11 @@ class PictureOfTheDayFragment : Fragment() {
             R.id.app_bar_fav ->
                 Toast.makeText(requireContext(),"app_bar_fav",Toast.LENGTH_SHORT).show()
             R.id.app_bar_settings ->
-                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.container_main_activity,
-                    ChipsFragment.newInstance()).addToBackStack("").commit()
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.container_main_activity, ChipsFragment.newInstance()).addToBackStack("").commit()
             android.R.id.home ->  {
                 BottomNavigationDrawerFragment().show(requireActivity().supportFragmentManager,"") //выдвигаем бургер меню
             }
-            R.id.app_bar_search -> //Не работает
-                Toast.makeText(requireContext(),"работает поиск", Toast.LENGTH_LONG).show()
+            R.id.app_bar_search ->  Toast.makeText(requireContext(),"работает поиск", Toast.LENGTH_LONG).show()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -135,13 +137,17 @@ class PictureOfTheDayFragment : Fragment() {
         bottomSheetBehavior.setPeekHeight(450,true) //Выдвигаем только на 200 вверх
         bottomSheetBehavior.setHideable(false) //указываем можно скрыть или нет
 
+        /*Кликаем и выдвигаем панель*/
+        binding.includedBsl.bottomSheetContainer.setOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+        }
+
         /*Ловим как выдвигается состояния*/
         bottomSheetBehavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 when (newState) {
                     /*НАДО ИЗУЧИТЬ ПРИ КАКИХ ДЕЙСТВИЯХ ЧТО БУДЕТ*/
-
                     /*BottomSheetBehavior.STATE_DRAGGING -> TODO("not implemented")
                     BottomSheetBehavior.STATE_COLLAPSED -> TODO("not implemented")
                     BottomSheetBehavior.STATE_EXPANDED -> TODO("not implemented")

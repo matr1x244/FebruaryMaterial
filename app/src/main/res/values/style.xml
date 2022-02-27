@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--myButtonStyle-->
+    <style name="myButtonStyle" parent="Widget.MaterialComponents.Button"> </style>
+
+    <!--myFloatingActionButtonStyle-->
+    <style name="myFloatingActionButtonStyle" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="backgroundTint">@color/red_600</item>
+        <item name="tint">@color/white</item>
+    </style>
+
+    <!--myFloatingActionButtonStyle-->
+    <style name="myFloatingActionButtonStyle1" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="backgroundTint">@color/red_600</item>
+        <item name="tint">@color/white</item>
+    </style>
+
+    <!--myBottomAppBarStyle-->
+    <style name="myBottomAppBarStyle" parent="Widget.MaterialComponents.BottomAppBar">
+        <item name="backgroundTint">@color/color_blue_nasa_icon</item>
+    </style>
+
+    <!--myProgressBarStyle-->
+    <style name="myProgressBarStyle" parent="Widget.MaterialComponents.CircularProgressIndicator">
+        <item name="indicatorColor">@color/color_blue_nasa_icon</item>
+    </style>
+
+    <!--myCardViewStyle-->
+    <style name="myCardViewStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/myMediumComponentStyle</item>
+    </style>
+
+    <!--mySnackBarStyle-->
+    <style name="mySnackBarStyle" parent="Widget.MaterialComponents.Snackbar">
+        <item name="backgroundTint">@color/black</item>
+        <item name="android:textColor">@color/color_yellow</item> <!--НЕ РАБОТАЕТ НЕ МЕНЯЕТ ЦВЕТ-->
+    </style>
+
+    <!--myChipsStyleActionBaseStyle-->
+    <style name="myChipsStyleActionBaseStyle" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="rippleColor">@color/color_blue_nasa_icon_transparent</item>
+    </style>
+
+    <!--myFontFamilyStyle-->
+    <style name="myFontFamilyStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="fontFamily">@font/astro_space</item>
+    </style>
+
+    <!--myTabStyle-->
+    <style name="myTabStyle" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabIndicatorColor">@color/red_500</item>
+    </style>
+
+    <!--mySmallComponentStyle-->
+    <style name="mySmallComponentStyle" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">5dp</item>
+    </style>
+
+    <!--myMediumComponentStyle-->
+    <style name="myMediumComponentStyle" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cardElevation">20dp</item>
+        <item name="cornerSize">10dp</item>
+    </style>
+
+</resources>

@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name_title">NASA MD</string>
     <!--Базовые названия-->
     <string name="photo_of_the_day_stub">Фото дня</string>
@@ -13,5 +14,11 @@
     <string name="reload">Обновить</string>
     <string name="load">Загрузка</string>
     <string name="success">Успешно</string>
+    <!--Темы-->
+    <string name="theme_earth">Тема Земля</string>
+    <string name="theme_mars">Тема Марсиянин</string>
+    <string name="theme_standart">Стандартная тема</string>
+    <string name="theme_day">Тема дневная</string>
+    <string name="theme_night">Тема ночная</string>
 
 </resources>

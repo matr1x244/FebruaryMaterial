@@ -12,21 +12,10 @@
         android:layout_height="match_parent"
         android:padding="5dp">
 
-        <ScrollView
-            android:id="@+id/scrollView2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/search_wiki"
             app:counterEnabled="true"
@@ -61,7 +50,6 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/yesterdayChip"
-                    style="@style/Widget.MaterialComponents.Chip.Action"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Вчера"
@@ -71,7 +59,6 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/todayChip"
-                    style="@style/Widget.MaterialComponents.Chip.Action"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Сегодня"
@@ -82,48 +69,60 @@
                     android:id="@+id/astronautChip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:chipIcon="@mipmap/ic_nasa_foreground"
                     android:text="День Космонавта"
+                    app:chipIcon="@mipmap/ic_nasa_foreground"
                     app:layout_constraintEnd_toEndOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.chip.ChipGroup>
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardView_main"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="5dp"
-            app:cardMaxElevation="10dp"
-            android:focusable="auto"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
 
-            <com.geekbrains.februarymaterial.utils.EquilateralImageView
-                android:id="@+id/image_view"
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardView_main"
+                style="@style/myCardViewStyle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="1dp"
-                android:layout_marginStart="1dp"
-                android:layout_marginLeft="1dp"
-                android:layout_marginTop="1dp"
-                android:layout_marginEnd="1dp"
-                android:layout_marginRight="1dp"
-                android:layout_marginBottom="1dp"
-                android:contentDescription="@string/photo_of_the_day_stub"
+                android:layout_height="wrap_content"
+                android:focusable="auto"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_no_photo_vector" />
+                app:layout_constraintTop_toTopOf="parent">
 
-        </com.google.android.material.card.MaterialCardView>
+                <com.geekbrains.februarymaterial.utils.EquilateralImageView
+                    android:id="@+id/image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="1dp"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:contentDescription="@string/photo_of_the_day_stub"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_no_photo_vector" />
+
+                <TextView
+                    android:id="@+id/textViewDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="1dp"
+                    android:text="date today"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.card.MaterialCardView>
+
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progressBarMain"
@@ -173,7 +172,7 @@
         android:id="@+id/widgetGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="cardView_main,image_view,included_bsl"
+        app:constraint_referenced_ids="cardView_main,image_view,included_bsl, textViewDate"
         tools:ignore="NotSibling" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

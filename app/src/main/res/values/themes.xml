@@ -2,59 +2,51 @@
     <!-- Base application theme. -->
     <style name="Theme.FebruaryMaterial" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
-        <item name="android:statusBarColor">@color/black</item>
-        <item name="android:navigationBarColor">@color/black</item>
+        <item name="android:statusBarColor">?attr/color_blue_nasa_icon</item>
+        <item name="android:navigationBarColor">?attr/color_blue_nasa_icon</item>
         <item name="colorPrimary">@color/red_600</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/red_200</item>
         <item name="colorPrimaryContainer">@color/red_100</item>
         <item name="colorOnPrimaryContainer">@color/red_900</item>
         <item name="colorPrimaryInverse">@color/red_200</item>
         <item name="colorSecondary">@color/red_600</item>
-        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorOnSecondary">@color/red_200</item>
         <item name="colorSecondaryContainer">@color/red_100</item>
         <item name="colorOnSecondaryContainer">@color/red_900</item>
+<!--    <item name="colorSurface">@color/red_200</item>-->
         <item name="colorTertiary">@color/red_600</item>
-        <item name="colorOnTertiary">#712323</item>
+        <item name="colorOnTertiary">@color/red_700</item>
         <item name="colorTertiaryContainer">@color/red_100</item>
         <item name="colorOnTertiaryContainer">@color/red_900</item>
 
-        <!--Стиль для кнопок-->
+        <!--Стили стандартные-->
         <item name="materialButtonStyle">@style/myButtonStyle</item>
         <item name="bottomAppBarStyle">@style/myBottomAppBarStyle</item>
         <item name="progressBarStyle">@style/myProgressBarStyle</item>
         <item name="floatingActionButtonStyle">@style/myFloatingActionButtonStyle</item>
         <item name="cardViewStyle">@style/myCardViewStyle</item>
         <item name="snackbarStyle">@style/mySnackBarStyle</item>
+        <item name="chipStyle">@style/myChipsStyleActionBaseStyle</item>
+        <item name="fontFamily">@style/myFontFamilyStyle</item>
+        <item name="tabStyle">@style/myTabStyle</item>
 
     </style>
-    <!--myButtonStyle-->
-    <style name="myButtonStyle" parent="Widget.MaterialComponents.Button"></style>
 
-    <!--myFloatingActionButtonStyle-->
-    <style name="myFloatingActionButtonStyle" parent="Widget.MaterialComponents.FloatingActionButton">
-        <item name="backgroundTint">@color/red_600</item>
-        <item name="tint">@color/white</item>
+    <!--Тема кастом RED-->
+    <style name="FebruaryMaterialRed" parent="Theme.FebruaryMaterial">
+        <item name="android:statusBarColor">@color/red_200</item>
+        <item name="android:navigationBarColor">@color/red_200</item>
+        <item name="colorPrimary">@color/red_600</item>
+        <item name="shapeAppearanceSmallComponent">@style/mySmallComponentStyle</item>
     </style>
 
-    <!--myBottomAppBarStyle-->
-    <style name="myBottomAppBarStyle" parent="Widget.MaterialComponents.BottomAppBar">
-        <item name="backgroundTint">@color/color_blue</item>
+    <!--Тема кастом Blue-->
+    <style name="FebruaryMaterialBlue" parent="Theme.FebruaryMaterial">
+        <item name="android:statusBarColor">@color/color_blue_nasa_icon</item>
+        <item name="android:navigationBarColor">@color/color_blue_nasa_icon</item>
+        <item name="colorPrimary">@color/color_blue</item> <!--как только ?attr именно colorPrimary приложение падает-->
     </style>
 
-    <!--myProgressBarStyle-->
-    <style name="myProgressBarStyle" parent="Widget.MaterialComponents.CircularProgressIndicator">
-        <item name="indicatorColor">@color/color_blue</item>
-    </style>
-
-    <!--myCardViewStyle-->
-    <style name="myCardViewStyle" parent="Widget.MaterialComponents.CardView">
-        <item name="cardBackgroundColor">@color/transparent</item>
-    </style>
-
-    <!--mySnackBarStyle-->
-    <style name="mySnackBarStyle" parent="Widget.MaterialComponents.Snackbar">
-        <item name="backgroundColor">@color/white</item>
-    </style>
 
 
 </resources>

@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/chips_fragment_layout">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <com.google.android.material.chip.Chip
             android:layout_width="wrap_content"
@@ -41,6 +42,99 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Filter" />
+
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start">
+
+                <RadioButton
+                    android:id="@+id/btnThemeOne"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/theme_earth"
+                    android:textColor="@color/black" />
+
+                <RadioButton
+                    android:id="@+id/btnThemeTwo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/theme_mars"
+                    android:textColor="@color/black" />
+
+                <RadioButton
+                    android:id="@+id/btnThemeThree"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/theme_standart"
+                    android:textColor="@color/black" />
+
+            <Switch
+                android:id="@+id/switchNigth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ночной режим" />
+
+        </RadioGroup>
+
+        </LinearLayout>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tab 1" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tab 2" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tab 3" />
+        </com.google.android.material.tabs.TabLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardViewChips"
+            style="@style/myCardViewStyle"
+            android:layout_margin="20dp"
+            app:cardElevation="20dp"
+            app:cardCornerRadius="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:gravity="center">
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:menu="@menu/menu_bottom_navigation" />
+    </LinearLayout>
+
+
 </LinearLayout>
+

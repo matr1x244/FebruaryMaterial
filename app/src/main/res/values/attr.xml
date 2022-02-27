@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--RED COLOR-->
+    <attr name="red_100" format="color"/>
+    <attr name="red_200" format="color"/>
+    <attr name="red_500" format="color"/>
+    <attr name="red_600" format="color"/>
+    <attr name="red_700" format="color"/>
+    <attr name="red_800" format="color"/>
+    <attr name="red_900" format="color"/>
+    <!--WHITE COLOR-->
+    <attr name="white" format="color"/>
+    <!--COLOR BLUE NASA-->
+    <attr name="color_blue_nasa_icon" format="color"/>
+    <attr name="color_blue_nasa_icon_transparent" format="color"/>
+    <attr name="color_blue" format="color"/>
+    <!--COLOR GRAY-->
+    <attr name="color_gray" format="color"/>
+    <attr name="color_gray_transparent" format="color"/>
+
+</resources>

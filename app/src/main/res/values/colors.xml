@@ -10,8 +10,11 @@
     <color name="transparent">#00FFFFFF</color>
 
     <color name="color_gray">#66000000</color>
+    <color name="color_gray_transparent">#14000000</color>
     <color name="color_yellow">#EEFF41</color>
     <color name="color_blue">#448AFF</color>
+    <color name="color_blue_nasa_icon">#003C91</color>
+    <color name="color_blue_nasa_icon_transparent">#99003C91</color>
 
     <color name="red_100">#FBC7CC</color>
     <color name="red_200">#FB4844</color>
