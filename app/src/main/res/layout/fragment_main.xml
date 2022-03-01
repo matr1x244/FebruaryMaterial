@@ -165,6 +165,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         app:layout_anchor="@id/bottom_app_bar"
+        app:layout_dodgeInsetEdges="end"
         app:srcCompat="@drawable/ic_plus_fab" />
 
     <!--Если спрятать всё в группу-->

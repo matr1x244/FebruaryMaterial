@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
+import com.geekbrains.februarymaterial.R
 import com.geekbrains.februarymaterial.databinding.FragmentChipsBinding
 import com.geekbrains.februarymaterial.view.MainActivity
 import com.geekbrains.februarymaterial.view.ThemeOne
@@ -44,10 +44,21 @@ class ChipsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         tabsClick()
-        themeClick()
+        themeSet()
+        themeGet()
+
     }
 
-    private fun themeClick() {
+    /*RadioGroupClicks*/
+    private fun themeGet() {
+        when (parentActivity.getCurrentTheme()) {
+            1 ->  binding.radioGroup.check(R.id.btnThemeOne)
+            2 ->  binding.radioGroup.check(R.id.btnThemeTwo)
+            3 ->  binding.radioGroup.check(R.id.btnThemeThree)
+        }
+    }
+
+    private fun themeSet() {
         binding.btnThemeOne.setOnClickListener{
           binding.btnThemeOne.isChecked
             parentActivity.setCurrentTheme(ThemeOne)
@@ -71,6 +82,7 @@ class ChipsFragment : Fragment() {
             }
         }
     }
+
 
 
     /*TABS*/

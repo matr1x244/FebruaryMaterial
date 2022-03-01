@@ -10,12 +10,6 @@
         <item name="tint">@color/white</item>
     </style>
 
-    <!--myFloatingActionButtonStyle-->
-    <style name="myFloatingActionButtonStyle1" parent="Widget.MaterialComponents.FloatingActionButton">
-        <item name="backgroundTint">@color/red_600</item>
-        <item name="tint">@color/white</item>
-    </style>
-
     <!--myBottomAppBarStyle-->
     <style name="myBottomAppBarStyle" parent="Widget.MaterialComponents.BottomAppBar">
         <item name="backgroundTint">@color/color_blue_nasa_icon</item>
@@ -34,7 +28,12 @@
     <!--mySnackBarStyle-->
     <style name="mySnackBarStyle" parent="Widget.MaterialComponents.Snackbar">
         <item name="backgroundTint">@color/black</item>
-        <item name="android:textColor">@color/color_yellow</item> <!--НЕ РАБОТАЕТ НЕ МЕНЯЕТ ЦВЕТ-->
+    </style>
+
+    <!--mySnackBarTextViewStyle-->
+    <style name="mySnackBarTextViewStyle" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/color_yellow</item>
+        <item name="android:gravity">start|center</item>
     </style>
 
     <!--myChipsStyleActionBaseStyle-->

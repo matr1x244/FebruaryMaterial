@@ -14,6 +14,7 @@
     <string name="reload">Обновить</string>
     <string name="load">Загрузка</string>
     <string name="success">Успешно</string>
+    <string name="error_connection">Успешно</string>
     <!--Темы-->
     <string name="theme_earth">Тема Земля</string>
     <string name="theme_mars">Тема Марсиянин</string>

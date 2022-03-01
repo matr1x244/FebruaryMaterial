@@ -4,20 +4,28 @@
 
         <item name="android:statusBarColor">?attr/color_blue_nasa_icon</item>
         <item name="android:navigationBarColor">?attr/color_blue_nasa_icon</item>
-        <item name="colorPrimary">@color/red_600</item>
-        <item name="colorOnPrimary">@color/red_200</item>
-        <item name="colorPrimaryContainer">@color/red_100</item>
-        <item name="colorOnPrimaryContainer">@color/red_900</item>
-        <item name="colorPrimaryInverse">@color/red_200</item>
-        <item name="colorSecondary">@color/red_600</item>
-        <item name="colorOnSecondary">@color/red_200</item>
-        <item name="colorSecondaryContainer">@color/red_100</item>
-        <item name="colorOnSecondaryContainer">@color/red_900</item>
+        <item name="colorPrimary">?attr/red_600</item>
+        <item name="colorOnPrimary">?attr/red_200</item>
+        <item name="colorPrimaryContainer">?attr/red_100</item>
+        <item name="colorOnPrimaryContainer">?attr/red_900</item>
+        <item name="colorPrimaryInverse">?attr/red_200</item>
+        <item name="colorSecondary">?attr/red_600</item>
+        <item name="colorOnSecondary">?attr/red_200</item>
+        <item name="colorSecondaryContainer">?attr/red_100</item>
+        <item name="colorOnSecondaryContainer">?attr/red_900</item>
 <!--    <item name="colorSurface">@color/red_200</item>-->
-        <item name="colorTertiary">@color/red_600</item>
-        <item name="colorOnTertiary">@color/red_700</item>
-        <item name="colorTertiaryContainer">@color/red_100</item>
-        <item name="colorOnTertiaryContainer">@color/red_900</item>
+        <item name="colorTertiary">?attr/red_600</item>
+        <item name="colorOnTertiary">?attr/red_700</item>
+        <item name="colorTertiaryContainer">?attr/red_100</item>
+        <item name="colorOnTertiaryContainer">?attr/red_900</item>
+
+        <item name="red_100">@color/red_100</item>
+        <item name="red_200">@color/red_200</item>
+        <item name="red_500">@color/red_500</item>
+        <item name="red_600">@color/red_600</item>
+        <item name="red_700">@color/red_700</item>
+        <item name="red_800">@color/red_800</item>
+        <item name="red_900">@color/red_900</item>
 
         <!--Стили стандартные-->
         <item name="materialButtonStyle">@style/myButtonStyle</item>
@@ -29,22 +37,31 @@
         <item name="chipStyle">@style/myChipsStyleActionBaseStyle</item>
         <item name="fontFamily">@style/myFontFamilyStyle</item>
         <item name="tabStyle">@style/myTabStyle</item>
+        <item name="snackbarTextViewStyle">@style/mySnackBarTextViewStyle</item>
 
     </style>
 
     <!--Тема кастом RED-->
     <style name="FebruaryMaterialRed" parent="Theme.FebruaryMaterial">
-        <item name="android:statusBarColor">@color/red_200</item>
-        <item name="android:navigationBarColor">@color/red_200</item>
-        <item name="colorPrimary">@color/red_600</item>
+        <item name="android:statusBarColor">?attr/red_200</item>
+        <item name="android:navigationBarColor">?attr/red_200</item>
+        <item name="colorPrimary">?attr/red_600</item>
         <item name="shapeAppearanceSmallComponent">@style/mySmallComponentStyle</item>
+
+        <item name="red_200">@color/red_200</item>
+        <item name="red_600">@color/red_600</item>
+
     </style>
 
     <!--Тема кастом Blue-->
     <style name="FebruaryMaterialBlue" parent="Theme.FebruaryMaterial">
-        <item name="android:statusBarColor">@color/color_blue_nasa_icon</item>
-        <item name="android:navigationBarColor">@color/color_blue_nasa_icon</item>
-        <item name="colorPrimary">@color/color_blue</item> <!--как только ?attr именно colorPrimary приложение падает-->
+        <item name="android:statusBarColor">?attr/color_blue_nasa_icon</item>
+        <item name="android:navigationBarColor">?attr/color_blue_nasa_icon</item>
+        <item name="colorPrimary">?attr/color_blue</item> <!--как только ?attr именно colorPrimary приложение падает-->
+
+        <item name="color_blue_nasa_icon">@color/color_blue_nasa_icon</item>
+        <item name="color_blue">@color/color_blue</item>
+
     </style>
 
 
