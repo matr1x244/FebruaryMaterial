@@ -109,7 +109,76 @@ class PictureOfTheDayViewModel(private val liveData: MutableLiveData<PictureOfTh
         )
     }
 
+    fun sendServerEarthDay(){
+        val dateEarth = "2010-12-31"
+        liveData.postValue(PictureOfTheDayAppState.Loading(null))
+        pictureOfTheDayRetrofitImpl.getRetrofitImpl().getPictureOfTheDayEarth(BuildConfig.NASA_API_KEY,dateEarth).enqueue(
+            object : Callback <PictureOfTheDayResponseData> {
+                override fun onResponse(
+                    call: Call<PictureOfTheDayResponseData>,
+                    response: Response<PictureOfTheDayResponseData>
+                ) {
+                    if(response.isSuccessful&&response.body()!=null){
+                        response.body()?.let {
+                            liveData.postValue(PictureOfTheDayAppState.Success(it))
+                        }
+                    }else{
+                        liveData.postValue(PictureOfTheDayAppState.Loading(null))
+                    }
+                }
+                override fun onFailure(call: Call<PictureOfTheDayResponseData>, t: Throwable) {
+                    //TODO("Not yet implemented")
+                }
+            }
+        )
+    }
 
+    fun sendServerMarsDay(){
+        val dateMars = "2009-04-24"
+        liveData.postValue(PictureOfTheDayAppState.Loading(null))
+        pictureOfTheDayRetrofitImpl.getRetrofitImpl().getPictureOfTheDayMars(BuildConfig.NASA_API_KEY,dateMars).enqueue(
+            object : Callback <PictureOfTheDayResponseData> {
+                override fun onResponse(
+                    call: Call<PictureOfTheDayResponseData>,
+                    response: Response<PictureOfTheDayResponseData>
+                ) {
+                    if(response.isSuccessful&&response.body()!=null){
+                        response.body()?.let {
+                            liveData.postValue(PictureOfTheDayAppState.Success(it))
+                        }
+                    }else{
+                        liveData.postValue(PictureOfTheDayAppState.Loading(null))
+                    }
+                }
+                override fun onFailure(call: Call<PictureOfTheDayResponseData>, t: Throwable) {
+                    //TODO("Not yet implemented")
+                }
+            }
+        )
+    }
 
+    fun sendServerSystemDay(){
+        val dateSystem = "2010-05-20"
+        liveData.postValue(PictureOfTheDayAppState.Loading(null))
+        pictureOfTheDayRetrofitImpl.getRetrofitImpl().getPictureOfTheDaySystem(BuildConfig.NASA_API_KEY,dateSystem).enqueue(
+            object : Callback <PictureOfTheDayResponseData> {
+                override fun onResponse(
+                    call: Call<PictureOfTheDayResponseData>,
+                    response: Response<PictureOfTheDayResponseData>
+                ) {
+                    if(response.isSuccessful&&response.body()!=null){
+                        response.body()?.let {
+                            liveData.postValue(PictureOfTheDayAppState.Success(it))
+                        }
+                    }else{
+                        liveData.postValue(PictureOfTheDayAppState.Loading(null))
+                    }
+                }
+                override fun onFailure(call: Call<PictureOfTheDayResponseData>, t: Throwable) {
+                    //TODO("Not yet implemented")
+                }
+            }
+        )
+    }
 
 }

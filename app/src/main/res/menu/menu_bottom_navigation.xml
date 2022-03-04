@@ -4,11 +4,11 @@
         <item
             android:id="@+id/navigation_one"
             android:icon="@drawable/ic_archive"
-            android:title="На экран 1" />
+            android:title="Экран номер 1 без bottomNav" />
         <item
             android:id="@+id/navigation_two"
             android:icon="@drawable/ic_send"
-            android:title="На экран 2" />
+            android:title="Экран номер 2 с bottomNav" />
     </group>
 
 </menu>

@@ -78,7 +78,6 @@
         </com.google.android.material.chip.ChipGroup>
 
 
-
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardView_main"
                 style="@style/myCardViewStyle"

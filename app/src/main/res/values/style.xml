@@ -63,4 +63,12 @@
         <item name="cornerSize">10dp</item>
     </style>
 
+    <!--MyNavigationStyle-->
+    <style name="myNavigationStyle" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="elevation">10dp</item>
+        <item name="itemTextColor">@color/color_blue_nasa_icon</item>
+        <item name="itemIconTint">@color/red_700</item>
+        <item name="backgroundTint">@color/white</item>
+    </style>
+
 </resources>

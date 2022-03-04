@@ -23,5 +23,22 @@ interface PictureOfTheDayAPI {
         @Query("date") date: String?
     ): Call <PictureOfTheDayResponseData>
 
+    @GET("planetary/apod")
+    fun getPictureOfTheDayEarth(
+        @Query("api_key") apiKey: String,
+        @Query("date") date: String?
+    ): Call <PictureOfTheDayResponseData>
+
+    @GET("planetary/apod")
+    fun getPictureOfTheDayMars(
+        @Query("api_key") apiKey: String,
+        @Query("date") date: String?
+    ): Call <PictureOfTheDayResponseData>
+
+    @GET("planetary/apod")
+    fun getPictureOfTheDaySystem(
+        @Query("api_key") apiKey: String,
+        @Query("date") date: String?
+    ): Call <PictureOfTheDayResponseData>
 
 }

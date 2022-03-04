@@ -9,6 +9,9 @@
     <string name="settings">Настройки</string>
     <string name="search">Поиск</string>
     <string name="imageDesc">Картинка</string>
+    <string name="system">System</string>
+    <string name="mars">Mars</string>
+    <string name="earth">Earth</string>
     <!--renderData состояние-->
     <string name="error_load">Ошибка загрузки</string>
     <string name="reload">Обновить</string>

@@ -30,7 +30,15 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <activity
+            android:name=".view.navigation.NavigationActivity"
+            android:exported="true">
+        </activity>
 
+        <activity
+            android:name=".view.navigation.BottomNavigationActivity"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

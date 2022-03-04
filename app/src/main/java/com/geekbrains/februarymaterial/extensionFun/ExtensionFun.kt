@@ -1,4 +1,4 @@
-package com.geekbrains.februarymaterial.ExtensionFun
+package com.geekbrains.februarymaterial.extensionFun
 
 import android.content.Context
 import android.view.View

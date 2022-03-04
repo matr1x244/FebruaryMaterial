@@ -1,6 +1,7 @@
 package com.geekbrains.februarymaterial.view.chips
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,8 @@ import com.geekbrains.februarymaterial.view.MainActivity
 import com.geekbrains.februarymaterial.view.ThemeOne
 import com.geekbrains.februarymaterial.view.ThemeThree
 import com.geekbrains.februarymaterial.view.ThemeTwo
+import com.geekbrains.februarymaterial.view.navigation.BottomNavigationActivity
+import com.geekbrains.februarymaterial.view.navigation.NavigationActivity
 
 class ChipsFragment : Fragment() {
 
@@ -46,6 +49,7 @@ class ChipsFragment : Fragment() {
         tabsClick()
         themeSet()
         themeGet()
+        navigationClick()
 
     }
 
@@ -80,6 +84,20 @@ class ChipsFragment : Fragment() {
             }else{
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
+        }
+    }
+
+    private fun navigationClick(){
+        binding.bottomNavigationView.setOnNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.navigation_one->{
+                    startActivity(Intent(requireContext(), NavigationActivity::class.java))
+                }
+                R.id.navigation_two->{
+                    startActivity(Intent(requireContext(), BottomNavigationActivity::class.java))
+                }
+            }
+            true
         }
     }
 

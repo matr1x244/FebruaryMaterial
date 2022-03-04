@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/chips_fragment_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/chips_fragment_layout">
+    android:rotation="0"
+    android:rotationX="0"
+    android:rotationY="0">
 
 
     <LinearLayout
@@ -16,14 +19,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Default"
-            app:chipIcon="@mipmap/ic_nasa_foreground"/>
+            app:chipIcon="@mipmap/ic_nasa_foreground" />
 
         <com.google.android.material.chip.Chip
             style="@style/Widget.MaterialComponents.Chip.Entry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Entry"
-            app:closeIcon="@drawable/ic_bug_report"/>
+            app:closeIcon="@drawable/ic_bug_report" />
 
         <com.google.android.material.chip.Chip
             style="@style/Widget.MaterialComponents.Chip.Choice"
@@ -50,26 +53,26 @@
             android:layout_height="wrap_content"
             android:gravity="start">
 
-                <RadioButton
-                    android:id="@+id/btnThemeOne"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/theme_earth"
-                    android:textColor="@color/black" />
+            <RadioButton
+                android:id="@+id/btnThemeOne"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/theme_earth"
+                android:textColor="@color/black" />
 
-                <RadioButton
-                    android:id="@+id/btnThemeTwo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/theme_mars"
-                    android:textColor="@color/black" />
+            <RadioButton
+                android:id="@+id/btnThemeTwo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/theme_mars"
+                android:textColor="@color/black" />
 
-                <RadioButton
-                    android:id="@+id/btnThemeThree"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/theme_standart"
-                    android:textColor="@color/black" />
+            <RadioButton
+                android:id="@+id/btnThemeThree"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/theme_standart"
+                android:textColor="@color/black" />
 
             <Switch
                 android:id="@+id/switchNigth"
@@ -79,29 +82,29 @@
 
         </RadioGroup>
 
-        </LinearLayout>
+    </LinearLayout>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
+            android:text="Tab 1" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tab 1" />
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tab 2" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tab 2" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tab 3" />
-        </com.google.android.material.tabs.TabLayout>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tab 3" />
+    </com.google.android.material.tabs.TabLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -115,18 +118,19 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardViewChips"
             style="@style/myCardViewStyle"
-            android:layout_margin="20dp"
-            app:cardElevation="20dp"
-            app:cardCornerRadius="20dp"
             android:layout_width="match_parent"
-            android:layout_height="100dp"/>
+            android:layout_height="100dp"
+            android:layout_margin="20dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="20dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible"
-        android:gravity="center">
+        android:gravity="center"
+        android:visibility="visible">
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"

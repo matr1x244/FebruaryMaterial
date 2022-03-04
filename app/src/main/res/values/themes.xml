@@ -47,6 +47,7 @@
         <item name="android:navigationBarColor">?attr/red_200</item>
         <item name="colorPrimary">?attr/red_600</item>
         <item name="shapeAppearanceSmallComponent">@style/mySmallComponentStyle</item>
+        <item name="bottomNavigationStyle">@style/myNavigationStyle</item>
 
         <item name="red_200">@color/red_200</item>
         <item name="red_600">@color/red_600</item>
