@@ -36,7 +36,6 @@
         <item name="snackbarStyle">@style/mySnackBarStyle</item>
         <item name="chipStyle">@style/myChipsStyleActionBaseStyle</item>
         <item name="fontFamily">@style/myFontFamilyStyle</item>
-        <item name="tabStyle">@style/myTabStyle</item>
         <item name="snackbarTextViewStyle">@style/mySnackBarTextViewStyle</item>
 
     </style>
@@ -47,7 +46,8 @@
         <item name="android:navigationBarColor">?attr/red_200</item>
         <item name="colorPrimary">?attr/red_600</item>
         <item name="shapeAppearanceSmallComponent">@style/mySmallComponentStyle</item>
-        <item name="bottomNavigationStyle">@style/myNavigationStyle</item>
+        <item name="bottomNavigationStyle">@style/myNavigationStyleRed</item>
+        <item name="tabStyle">@style/myTabStyleRed</item>
 
         <item name="red_200">@color/red_200</item>
         <item name="red_600">@color/red_600</item>
@@ -59,6 +59,8 @@
         <item name="android:statusBarColor">?attr/color_blue_nasa_icon</item>
         <item name="android:navigationBarColor">?attr/color_blue_nasa_icon</item>
         <item name="colorPrimary">?attr/color_blue</item> <!--как только ?attr именно colorPrimary приложение падает-->
+        <item name="bottomNavigationStyle">@style/myNavigationStyleBlue</item>
+        <item name="tabStyle">@style/myTabStyleBlue</item>
 
         <item name="color_blue_nasa_icon">@color/color_blue_nasa_icon</item>
         <item name="color_blue">@color/color_blue</item>

@@ -4,7 +4,6 @@
     <item
         android:id="@+id/bottom_view_earth"
         android:icon="@drawable/ic_earth"
-        app:tooltipText = "Description bla bla bla "
         android:title="@string/earth" />
 
 

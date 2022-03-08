@@ -22,6 +22,9 @@ import com.geekbrains.februarymaterial.databinding.FragmentMainBinding
 import com.geekbrains.februarymaterial.view.MainActivity
 import com.geekbrains.februarymaterial.view.chips.ChipsFragment
 import com.geekbrains.februarymaterial.view.bottomNavigation.BottomNavigationDrawerFragment
+import com.geekbrains.februarymaterial.view.navigation.EarthFragment
+import com.geekbrains.februarymaterial.view.navigation.MarsFragment
+import com.geekbrains.februarymaterial.view.navigation.SystemFragment
 import com.geekbrains.februarymaterial.viewmodel.PictureOfTheDayAppState
 import com.geekbrains.februarymaterial.viewmodel.PictureOfTheDayViewModel
 import com.google.android.material.bottomappbar.BottomAppBar

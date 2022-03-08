@@ -68,7 +68,8 @@ class SystemFragment : Fragment() {
                         data = Uri.parse(pictureOfTheDayAppState.serverResponseData.url)
                     })
                 }
-                binding.imageViewSystem.visibility = View.VISIBLE
+                binding.bottomSheetDescriptionHeader.text = pictureOfTheDayAppState.serverResponseData.title
+                binding.fragmentSystem.visibility = View.VISIBLE
             }
         }
     }

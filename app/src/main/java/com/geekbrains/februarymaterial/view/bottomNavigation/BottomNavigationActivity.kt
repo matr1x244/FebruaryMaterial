@@ -5,6 +5,9 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.geekbrains.februarymaterial.R
 import com.geekbrains.februarymaterial.databinding.ActivityBottomNavigationBinding
+import com.geekbrains.februarymaterial.view.ThemeOne
+import com.geekbrains.februarymaterial.view.ThemeThree
+import com.geekbrains.februarymaterial.view.ThemeTwo
 import com.google.android.material.badge.BadgeDrawable.TOP_END
 
 
@@ -15,9 +18,9 @@ class BottomNavigationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBottomNavigationBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(getRealStyle(getCurrentTheme()))
         binding = ActivityBottomNavigationBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         initBottomNavigationView()
     }
 
@@ -59,7 +62,22 @@ class BottomNavigationActivity : AppCompatActivity() {
     }
 
     private fun navigationTo(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.containerBottomNav, fragment).addToBackStack(null).commit()
+    }
+
+    /*Сетим тему*/
+    fun getCurrentTheme(): Int {
+        val sharedPreferences = getSharedPreferences("sp", MODE_PRIVATE)
+        return sharedPreferences.getInt("current_theme", -1)
+    }
+
+    private fun getRealStyle(currentTheme: Int): Int {
+        return when (currentTheme) {
+            ThemeOne -> R.style.FebruaryMaterialBlue
+            ThemeTwo -> R.style.FebruaryMaterialRed
+            ThemeThree -> R.style.Theme_FebruaryMaterial
+            else -> 0
+        }
     }
 
 }

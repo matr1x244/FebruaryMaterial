@@ -6,7 +6,7 @@
 
     <!--myFloatingActionButtonStyle-->
     <style name="myFloatingActionButtonStyle" parent="Widget.MaterialComponents.FloatingActionButton">
-        <item name="backgroundTint">@color/red_600</item>
+        <item name="backgroundTint">@color/red_500</item>
         <item name="tint">@color/white</item>
     </style>
 
@@ -46,8 +46,13 @@
         <item name="fontFamily">@font/astro_space</item>
     </style>
 
-    <!--myTabStyle-->
-    <style name="myTabStyle" parent="Widget.MaterialComponents.TabLayout">
+    <!--myTabStyleBlue-->
+    <style name="myTabStyleBlue" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabIndicatorColor">@color/color_blue_nasa_icon</item>
+    </style>
+
+    <!--myTabStyleRed-->
+    <style name="myTabStyleRed" parent="Widget.MaterialComponents.TabLayout">
         <item name="tabIndicatorColor">@color/red_500</item>
     </style>
 
@@ -63,11 +68,19 @@
         <item name="cornerSize">10dp</item>
     </style>
 
-    <!--MyNavigationStyle-->
-    <style name="myNavigationStyle" parent="Widget.MaterialComponents.BottomNavigationView">
+    <!--MyNavigationStyleRED-->
+    <style name="myNavigationStyleRed" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="elevation">10dp</item>
+        <item name="itemTextColor">@color/red_900</item>
+        <item name="itemIconTint">@color/red_600</item>
+        <item name="backgroundTint">@color/white</item>
+    </style>
+
+    <!--MyNavigationStyleBLUE-->
+    <style name="myNavigationStyleBlue" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="elevation">10dp</item>
         <item name="itemTextColor">@color/color_blue_nasa_icon</item>
-        <item name="itemIconTint">@color/red_700</item>
+        <item name="itemIconTint">@color/color_blue</item>
         <item name="backgroundTint">@color/white</item>
     </style>
 

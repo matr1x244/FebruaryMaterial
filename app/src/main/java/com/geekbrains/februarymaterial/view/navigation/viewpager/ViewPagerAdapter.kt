@@ -1,7 +1,12 @@
-package com.geekbrains.februarymaterial.view.navigation
+package com.geekbrains.februarymaterial.view.navigation.viewpager
 
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.geekbrains.februarymaterial.view.chips.ChipsFragment
+import com.geekbrains.februarymaterial.view.main.PictureOfTheDayFragment
+import com.geekbrains.februarymaterial.view.navigation.EarthFragment
+import com.geekbrains.februarymaterial.view.navigation.MarsFragment
+import com.geekbrains.februarymaterial.view.navigation.SystemFragment
 
 const val EARTH_KEY = 0
 const val MARS_KEY = 1

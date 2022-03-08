@@ -14,3 +14,18 @@ data class PictureOfTheDayResponseData(
     @SerializedName("title") val title: String?,
     @SerializedName("url") val url: String
 )
+
+data class NasaImageData(
+    val collection: Collection?
+) {
+    data class Collection(
+            @SerializedName("href") val href: String?,
+            @SerializedName("items") val items: List<Item?>?,
+            @SerializedName("version") val version: String?
+    )
+    {
+        data class Item(
+            @SerializedName("href") val href: String?
+        )
+    }
+}

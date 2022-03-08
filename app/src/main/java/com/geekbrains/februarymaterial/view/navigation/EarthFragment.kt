@@ -10,8 +10,6 @@ import androidx.lifecycle.Observer
 import coil.load
 import com.geekbrains.februarymaterial.R
 import com.geekbrains.februarymaterial.databinding.FragmentEarthBinding
-import com.geekbrains.februarymaterial.extensionFun.showSnackBarAction
-import com.geekbrains.februarymaterial.extensionFun.showSnackBarNoAction
 import com.geekbrains.februarymaterial.viewmodel.PictureOfTheDayAppState
 import com.geekbrains.februarymaterial.viewmodel.PictureOfTheDayViewModel
 
@@ -69,7 +67,8 @@ class EarthFragment : Fragment() {
                         data = Uri.parse(pictureOfTheDayAppState.serverResponseData.url)
                     })
                 }
-                binding.imageViewEarth.visibility = View.VISIBLE
+                binding.bottomSheetDescriptionHeader.text = pictureOfTheDayAppState.serverResponseData.title
+                binding.fragmentEarth.visibility = View.VISIBLE
             }
         }
     }

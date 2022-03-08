@@ -15,7 +15,7 @@ import com.geekbrains.februarymaterial.view.ThemeOne
 import com.geekbrains.februarymaterial.view.ThemeThree
 import com.geekbrains.februarymaterial.view.ThemeTwo
 import com.geekbrains.februarymaterial.view.navigation.BottomNavigationActivity
-import com.geekbrains.februarymaterial.view.navigation.NavigationActivity
+import com.geekbrains.februarymaterial.view.navigation.NavigationActivityTabs
 
 class ChipsFragment : Fragment() {
 
@@ -91,7 +91,7 @@ class ChipsFragment : Fragment() {
         binding.bottomNavigationView.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.navigation_one->{
-                    startActivity(Intent(requireContext(), NavigationActivity::class.java))
+                    startActivity(Intent(requireContext(), NavigationActivityTabs::class.java))
                 }
                 R.id.navigation_two->{
                     startActivity(Intent(requireContext(), BottomNavigationActivity::class.java))

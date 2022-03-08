@@ -31,7 +31,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
         <activity
-            android:name=".view.navigation.NavigationActivity"
+            android:name=".view.navigation.NavigationActivityTabs"
             android:exported="true">
         </activity>
 

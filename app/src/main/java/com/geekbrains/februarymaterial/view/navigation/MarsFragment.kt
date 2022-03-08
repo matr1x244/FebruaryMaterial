@@ -69,7 +69,8 @@ class MarsFragment : Fragment() {
                         data = Uri.parse(pictureOfTheDayAppState.serverResponseData.url)
                     })
                 }
-                binding.imageViewMars.visibility = View.VISIBLE
+                binding.bottomSheetDescriptionHeader.text = pictureOfTheDayAppState.serverResponseData.title
+                binding.fragmentMars.visibility = View.VISIBLE
             }
         }
     }

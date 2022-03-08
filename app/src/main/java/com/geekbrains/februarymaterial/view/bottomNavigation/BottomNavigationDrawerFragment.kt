@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.geekbrains.februarymaterial.R
 import com.geekbrains.februarymaterial.databinding.BottomNavigationLayoutBinding
 import com.geekbrains.februarymaterial.view.navigation.BottomNavigationActivity
-import com.geekbrains.februarymaterial.view.navigation.NavigationActivity
+import com.geekbrains.februarymaterial.view.navigation.NavigationActivityTabs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 /*BottomSheetDialogFragment*/
@@ -31,10 +31,11 @@ class BottomNavigationDrawerFragment: BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.navigationView.setNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.navigation_one->{
-                    startActivity(Intent(requireContext(), NavigationActivity::class.java))
+                    startActivity(Intent(requireContext(), NavigationActivityTabs::class.java))
                 }
                 R.id.navigation_two->{
                     startActivity(Intent(requireContext(), BottomNavigationActivity::class.java))
