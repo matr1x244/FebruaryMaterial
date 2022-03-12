@@ -14,6 +14,7 @@ import com.geekbrains.februarymaterial.view.MainActivity
 import com.geekbrains.februarymaterial.view.ThemeOne
 import com.geekbrains.februarymaterial.view.ThemeThree
 import com.geekbrains.februarymaterial.view.ThemeTwo
+import com.geekbrains.februarymaterial.view.layouts.LayoutActivity
 import com.geekbrains.februarymaterial.view.navigation.BottomNavigationActivity
 import com.geekbrains.februarymaterial.view.navigation.NavigationActivityTabs
 
@@ -95,6 +96,9 @@ class ChipsFragment : Fragment() {
                 }
                 R.id.navigation_two->{
                     startActivity(Intent(requireContext(), BottomNavigationActivity::class.java))
+                }
+                R.id.navigation_three->{
+                    startActivity(Intent(requireContext(), LayoutActivity::class.java))
                 }
             }
             true

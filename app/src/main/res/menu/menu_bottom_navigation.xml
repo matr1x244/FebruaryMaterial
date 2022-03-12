@@ -9,6 +9,10 @@
             android:id="@+id/navigation_two"
             android:icon="@drawable/ic_send"
             android:title="Экран номер 2 с bottomNav" />
+        <item
+            android:id="@+id/navigation_three"
+            android:icon="@drawable/ic_send"
+            android:title="Layout Activity" />
     </group>
 
 </menu>

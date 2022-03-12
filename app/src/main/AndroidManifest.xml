@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_nasa_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FebruaryMaterial">
+
         <activity
             android:name=".view.MainActivity"
             android:exported="true">
@@ -39,6 +40,12 @@
             android:name=".view.navigation.BottomNavigationActivity"
             android:exported="true">
         </activity>
+
+        <activity
+            android:name=".view.layouts.LayoutActivity"
+            android:exported="true">
+        </activity>
+
     </application>
 
 </manifest>
