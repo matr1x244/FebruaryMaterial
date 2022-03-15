@@ -212,7 +212,7 @@ class PictureOfTheDayFragment : Fragment() {
                 }
             }
         }*/
-        
+
 
         binding.astronautChip.setOnClickListener {
             viewModel.sendServerAstronautDay()

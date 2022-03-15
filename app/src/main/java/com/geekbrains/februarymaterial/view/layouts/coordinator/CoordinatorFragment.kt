@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.geekbrains.februarymaterial.R
 import com.geekbrains.februarymaterial.databinding.FragmentCoordinatorBinding
+import com.geekbrains.februarymaterial.extensionFun.showSnackBarNoAction
 import com.geekbrains.februarymaterial.viewmodel.PictureOfTheDayAppState
 import com.geekbrains.februarymaterial.viewmodel.PictureOfTheDayViewModel
 
@@ -71,6 +72,11 @@ class CoordinatorFragment : Fragment() {
     private fun invisibleBtn() {
         val behavior = ButtonBehavior(requireContext())
         (binding.myButton.getLayoutParams() as CoordinatorLayout.LayoutParams).behavior = behavior
+
+        binding.myButton.setOnClickListener {
+            viewModel.sendServerAstronautDay()
+            binding.fragmentCoordinator.showSnackBarNoAction(":)")
+        }
     }
 
     companion object {

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.geekbrains.februarymaterial.R
 import com.geekbrains.februarymaterial.databinding.FragmentChipsBinding
 import com.geekbrains.februarymaterial.view.MainActivity
@@ -17,6 +18,8 @@ import com.geekbrains.februarymaterial.view.ThemeTwo
 import com.geekbrains.februarymaterial.view.layouts.LayoutActivity
 import com.geekbrains.februarymaterial.view.navigation.BottomNavigationActivity
 import com.geekbrains.februarymaterial.view.navigation.NavigationActivityTabs
+import com.geekbrains.februarymaterial.viewmodel.PictureOfTheDayViewModel
+import com.google.android.material.chip.Chip
 
 class ChipsFragment : Fragment() {
 
@@ -51,7 +54,6 @@ class ChipsFragment : Fragment() {
         themeSet()
         themeGet()
         navigationClick()
-
     }
 
     /*RadioGroupClicks*/
