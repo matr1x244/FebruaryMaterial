@@ -5,8 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.geekbrains.februarymaterial.R
 import com.geekbrains.februarymaterial.databinding.ActivityLayoutBinding
+import com.geekbrains.februarymaterial.view.ThemeOne
+import com.geekbrains.februarymaterial.view.ThemeThree
+import com.geekbrains.februarymaterial.view.ThemeTwo
 import com.geekbrains.februarymaterial.view.layouts.constraint.ConstraintFragment
 import com.geekbrains.februarymaterial.view.layouts.coordinator.CoordinatorFragment
+import com.geekbrains.februarymaterial.view.layouts.motion.MotionFragment
 
 
 class LayoutActivity : AppCompatActivity() {
@@ -34,16 +38,14 @@ class LayoutActivity : AppCompatActivity() {
                     true
                 }
                 R.id.bottom_motion -> {
-                    //navigationTo(MotionFragment())
+                    navigationTo(MotionFragment())
                     true
                 }
                 else -> true
             }
         }
         binding.bottomNavigationView.selectedItemId = R.id.bottom_constraint
-
-
-        }
+    }
 
     private fun navigationTo(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()

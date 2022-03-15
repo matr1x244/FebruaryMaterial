@@ -12,6 +12,13 @@
         android:layout_height="match_parent"
         android:padding="5dp">
 
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrierInputLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="inputLayout" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -36,13 +43,30 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrierChipGroupTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="top"
+            app:constraint_referenced_ids="chipGroup" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrierChipGroupBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="chipGroup" />
+
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/cardView_main"
             app:singleSelection="true"
-            tools:layout_editor_absoluteX="5dp">
+            app:layout_constraintVertical_bias="0.2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/cardView_main"
+            app:layout_constraintTop_toBottomOf="@id/barrierInputLayout">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -73,10 +97,10 @@
                     app:chipIcon="@mipmap/ic_nasa_foreground"
                     app:layout_constraintEnd_toEndOf="parent" />
 
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.chip.ChipGroup>
-
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardView_main"
@@ -88,6 +112,20 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/barrierProgressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:barrierDirection="top"
+                    app:constraint_referenced_ids="image_view" />
+
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/barrierProgressBar1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:barrierDirection="bottom"
+                    app:constraint_referenced_ids="image_view" />
 
                 <com.geekbrains.februarymaterial.utils.EquilateralImageView
                     android:id="@+id/image_view"
@@ -111,6 +149,7 @@
 
                 <TextView
                     android:id="@+id/textViewDate"
+                    style="@style/myFontFamilyStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|end"
@@ -121,7 +160,6 @@
                     android:textStyle="bold" />
 
             </com.google.android.material.card.MaterialCardView>
-
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progressBarMain"
@@ -136,7 +174,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
+    
     <!--Выдвижная панель-->
     <include
         android:id="@+id/included_bsl"

@@ -135,7 +135,7 @@ class PictureOfTheDayFragment : Fragment() {
 
     private fun bottomSheetBehavior(){
         /*Выдвижная панель*/
-        bottomSheetBehavior = BottomSheetBehavior.from(binding.includedBsl.bottomSheetContainer)
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.includedBsl.bottomSheetContainer) //извлекаем behavior
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_SETTLING // Задаем как выдвигать
         bottomSheetBehavior.setPeekHeight(450,true) //Выдвигаем только на 200 вверх
         bottomSheetBehavior.setHideable(false) //указываем можно скрыть или нет

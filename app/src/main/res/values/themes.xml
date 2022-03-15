@@ -35,7 +35,6 @@
         <item name="cardViewStyle">@style/myCardViewStyle</item>
         <item name="snackbarStyle">@style/mySnackBarStyle</item>
         <item name="chipStyle">@style/myChipsStyleActionBaseStyle</item>
-        <item name="fontFamily">@style/myFontFamilyStyle</item>
         <item name="snackbarTextViewStyle">@style/mySnackBarTextViewStyle</item>
 
     </style>

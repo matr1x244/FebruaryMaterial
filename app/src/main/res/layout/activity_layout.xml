@@ -8,15 +8,15 @@
        android:id="@+id/container"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
-       android:layout_marginBottom="?actionBarSize"
        android:paddingBottom="?actionBarSize"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
+        style="@style/myNavigationStyleBlue"
         android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
         app:labelVisibilityMode="labeled"
         android:layout_gravity="bottom"
-        android:layout_height="?actionBarSize"
         app:menu="@menu/menu_bottom_navigation_activity_layout" />
 
 </FrameLayout>

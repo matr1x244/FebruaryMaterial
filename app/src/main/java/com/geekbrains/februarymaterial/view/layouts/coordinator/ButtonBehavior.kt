@@ -13,7 +13,7 @@ class ButtonBehavior (context: Context, attr:AttributeSet?=null): CoordinatorLay
         parent: CoordinatorLayout,
         child: View,
         dependency: View
-    )= dependency is AppBarLayout
+    )= dependency is AppBarLayout //связываем с appbar
 
 
     override fun onDependentViewChanged(
@@ -22,15 +22,17 @@ class ButtonBehavior (context: Context, attr:AttributeSet?=null): CoordinatorLay
         dependency: View
     ): Boolean {
 
-        val bar = dependency as AppBarLayout
+        val bar = dependency as AppBarLayout //связываем с appbar
         val barHeight = bar.height.toFloat()
         val barY = bar.y
 
+        /*Скрываем кнопку по условию*/
+        /*NestedScrollView - child в данном проекте*/
         if(abs(barY)>(barHeight*2/3)){
             child.visibility = View.GONE
         }else{
             child.visibility = View.VISIBLE
-            child.alpha = ((barHeight*2/3)-abs(barY/2))/(barHeight*2/3)
+            child.alpha = ((barHeight*2/3)-abs(barY/2))/(barHeight*2/3) //плавное исчезание
         }
 
         return super.onDependentViewChanged(parent, child, dependency)

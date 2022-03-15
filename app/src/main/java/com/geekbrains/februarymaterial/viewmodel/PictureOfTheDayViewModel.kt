@@ -110,7 +110,7 @@ class PictureOfTheDayViewModel(private val liveData: MutableLiveData<PictureOfTh
     }
 
     fun sendServerEarthDay(){
-        val dateEarth = "2010-12-31"
+        val dateEarth = "2022-03-13"
         liveData.postValue(PictureOfTheDayAppState.Loading(null))
         pictureOfTheDayRetrofitImpl.getRetrofitImpl().getPictureOfTheDayEarth(BuildConfig.NASA_API_KEY,dateEarth).enqueue(
             object : Callback <PictureOfTheDayResponseData> {

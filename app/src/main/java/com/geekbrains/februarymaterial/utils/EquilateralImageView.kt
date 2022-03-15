@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
 
-/*CUSTOM VIEW*/
+/*CUSTOM VIEW по размерам*/
 
 class EquilateralImageView @JvmOverloads constructor(
     context: Context,

@@ -12,7 +12,7 @@ class NestedBehavior(context: Context,attr:AttributeSet): CoordinatorLayout.Beha
         parent: CoordinatorLayout,
         child: View,
         dependency: View)
-    = dependency is AppBarLayout
+    = dependency is AppBarLayout //связываем с appbar
 
     override fun onDependentViewChanged(
         parent: CoordinatorLayout,
@@ -20,7 +20,8 @@ class NestedBehavior(context: Context,attr:AttributeSet): CoordinatorLayout.Beha
         dependency: View)
     : Boolean {
 
-        val bar = dependency as AppBarLayout
+        /*NestedScrollView - child в данном проекте*/
+        val bar = dependency as AppBarLayout //связываем с appbar
         child.y = bar.height.toFloat()+bar.y
 
         return super.onDependentViewChanged(parent, child, dependency)
