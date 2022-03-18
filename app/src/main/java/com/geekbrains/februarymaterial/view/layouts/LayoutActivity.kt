@@ -5,9 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.geekbrains.februarymaterial.R
 import com.geekbrains.februarymaterial.databinding.ActivityLayoutBinding
-import com.geekbrains.februarymaterial.view.ThemeOne
-import com.geekbrains.februarymaterial.view.ThemeThree
-import com.geekbrains.februarymaterial.view.ThemeTwo
 import com.geekbrains.februarymaterial.view.layouts.constraint.ConstraintFragment
 import com.geekbrains.februarymaterial.view.layouts.coordinator.CoordinatorFragment
 import com.geekbrains.februarymaterial.view.layouts.motion.MotionFragment

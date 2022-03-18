@@ -7,16 +7,11 @@ import androidx.lifecycle.ViewModel
 import com.geekbrains.februarymaterial.BuildConfig
 import com.geekbrains.februarymaterial.repository.PictureOfTheDayResponseData
 import com.geekbrains.februarymaterial.repository.PictureOfTheDayRetrofitImpl
-import okhttp3.internal.http.HttpDate.format
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.Month
-import java.time.Year
 import java.util.*
-import kotlin.time.Duration.Companion.days
 
 class PictureOfTheDayViewModel(private val liveData: MutableLiveData<PictureOfTheDayAppState> = MutableLiveData(),
                                private val pictureOfTheDayRetrofitImpl: PictureOfTheDayRetrofitImpl = PictureOfTheDayRetrofitImpl())
@@ -158,7 +153,7 @@ class PictureOfTheDayViewModel(private val liveData: MutableLiveData<PictureOfTh
     }
 
     fun sendServerSystemDay(){
-        val dateSystem = "2010-05-20"
+        val dateSystem = "2022-03-16"
         liveData.postValue(PictureOfTheDayAppState.Loading(null))
         pictureOfTheDayRetrofitImpl.getRetrofitImpl().getPictureOfTheDaySystem(BuildConfig.NASA_API_KEY,dateSystem).enqueue(
             object : Callback <PictureOfTheDayResponseData> {

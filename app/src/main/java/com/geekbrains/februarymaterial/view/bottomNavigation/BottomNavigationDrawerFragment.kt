@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.geekbrains.februarymaterial.R
 import com.geekbrains.februarymaterial.databinding.BottomNavigationLayoutBinding
-import com.geekbrains.februarymaterial.view.navigation.BottomNavigationActivity
 import com.geekbrains.februarymaterial.view.layouts.LayoutActivity
+import com.geekbrains.februarymaterial.view.navigation.BottomNavigationActivity
 import com.geekbrains.februarymaterial.view.navigation.NavigationActivityTabs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 

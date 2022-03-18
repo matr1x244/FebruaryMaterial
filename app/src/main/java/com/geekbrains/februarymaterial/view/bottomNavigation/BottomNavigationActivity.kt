@@ -1,7 +1,8 @@
 package com.geekbrains.februarymaterial.view.navigation
 
-import androidx.appcompat.app.AppCompatActivity
+
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.geekbrains.februarymaterial.R
 import com.geekbrains.februarymaterial.databinding.ActivityBottomNavigationBinding
@@ -10,8 +11,6 @@ import com.geekbrains.februarymaterial.view.ThemeOne
 import com.geekbrains.februarymaterial.view.ThemeThree
 import com.geekbrains.februarymaterial.view.ThemeTwo
 import com.google.android.material.badge.BadgeDrawable.TOP_END
-
-
 import com.google.android.material.badge.BadgeDrawable.TOP_START
 
 class BottomNavigationActivity : AppCompatActivity() {
@@ -24,6 +23,7 @@ class BottomNavigationActivity : AppCompatActivity() {
         setContentView(binding.root)
         initBottomNavigationView()
     }
+
 
     private fun initBottomNavigationView() {
         badgeAdd()

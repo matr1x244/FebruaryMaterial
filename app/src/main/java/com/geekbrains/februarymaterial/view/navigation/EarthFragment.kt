@@ -5,8 +5,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.geekbrains.februarymaterial.R
 import com.geekbrains.februarymaterial.databinding.FragmentEarthBinding

@@ -40,7 +40,7 @@
             android:id="@+id/btnOne"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:alpha="0"
+            android:alpha="1"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:text="1"
@@ -53,7 +53,7 @@
             android:id="@+id/btnTwo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:alpha="0"
+            android:alpha="1"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:text="2"
@@ -67,10 +67,30 @@
     </ConstraintSet>
 
     <Transition
-        app:constraintSetEnd="@id/end"
-        app:constraintSetStart="@id/start"
-        app:duration="2000">
-        <OnClick app:targetId="@+id/btnOne" />
+        app:constraintSetEnd="@+id/end"
+        app:constraintSetStart="@+id/start"
+        app:duration="3000">
+
+        <OnSwipe
+            app:dragDirection="dragLeft"
+            app:onTouchUp="autoCompleteToStart"
+            app:touchAnchorId="@id/btnOne"
+            app:touchAnchorSide="start"
+            app:touchRegionId="@id/btnOne" />
     </Transition>
+
+    <Transition
+        app:constraintSetStart="@+id/start"
+        app:constraintSetEnd="@+id/end"
+        app:duration="3000">
+
+        <OnSwipe
+            app:dragDirection="dragRight"
+            app:onTouchUp="autoCompleteToEnd"
+            app:touchAnchorSide="end"
+            app:touchAnchorId="@id/btnTwo"/>
+    </Transition>
+
+
 
 </MotionScene>

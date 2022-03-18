@@ -3,33 +3,28 @@ package com.geekbrains.februarymaterial.view.main
 
 import android.content.Intent
 import android.net.Uri
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.Toast
-
-import androidx.fragment.app.Fragment
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import coil.load
+import com.geekbrains.februarymaterial.R
+import com.geekbrains.februarymaterial.databinding.FragmentMainBinding
 import com.geekbrains.februarymaterial.extensionFun.showSnackBarAction
 import com.geekbrains.februarymaterial.extensionFun.showSnackBarNoAction
 import com.geekbrains.februarymaterial.extensionFun.showToastShort
-import com.geekbrains.februarymaterial.R
-import com.geekbrains.februarymaterial.databinding.FragmentMainBinding
 import com.geekbrains.februarymaterial.view.MainActivity
-import com.geekbrains.februarymaterial.view.chips.ChipsFragment
 import com.geekbrains.februarymaterial.view.bottomNavigation.BottomNavigationDrawerFragment
-import com.geekbrains.februarymaterial.view.navigation.EarthFragment
-import com.geekbrains.februarymaterial.view.navigation.MarsFragment
-import com.geekbrains.februarymaterial.view.navigation.SystemFragment
+import com.geekbrains.februarymaterial.view.chips.ChipsFragment
 import com.geekbrains.februarymaterial.viewmodel.PictureOfTheDayAppState
 import com.geekbrains.februarymaterial.viewmodel.PictureOfTheDayViewModel
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.chip.Chip
 
 
 class PictureOfTheDayFragment : Fragment() {
@@ -199,22 +194,23 @@ class PictureOfTheDayFragment : Fragment() {
 
     private fun chipsClick() {
 
-/*        binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->
+        /*Кликабельность chips для group */
+        binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
+                R.id.yesterdayChip-> {
+                    viewModel.sendServerYesterday()
+                }
                 R.id.todayChip-> {
                     viewModel.sendServerRequest()
                 }
-                R.id.astronautChip -> {
-                    viewModel.sendServerAstronautDay()
-                }
-                R.id.yesterdayChip->{
-                    viewModel.sendServerYesterday()
-                }
             }
-        }*/
-
-
+        }
         binding.astronautChip.setOnClickListener {
+            viewModel.sendServerAstronautDay()
+        }
+    }
+
+/*        binding.astronautChip.setOnClickListener {
             viewModel.sendServerAstronautDay()
         }
         binding.todayChip.setOnClickListener {
@@ -222,15 +218,8 @@ class PictureOfTheDayFragment : Fragment() {
         }
         binding.yesterdayChip.setOnClickListener {
             viewModel.sendServerYesterday()
-        }
-
-        /*Кликабельность chips для group */
-/*        binding.chipGroup.setOnCheckedChangeListener{ group, checkedId ->
-            binding.chipGroup.findViewById<Chip>(checkedId)?.let{
-                Toast.makeText(requireContext(),"chip $checkedId ${it.text}", Toast.LENGTH_SHORT).show()
-            }
         }*/
-    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

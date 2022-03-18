@@ -1,7 +1,7 @@
 package com.geekbrains.februarymaterial.view.navigation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.geekbrains.februarymaterial.R
 import com.geekbrains.februarymaterial.databinding.ActivityNavigationTabsBinding
