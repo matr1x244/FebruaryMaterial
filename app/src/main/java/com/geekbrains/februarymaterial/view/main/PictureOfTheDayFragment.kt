@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.transition.*
 import coil.load
 import com.geekbrains.februarymaterial.R
 import com.geekbrains.februarymaterial.databinding.FragmentMainBinding
@@ -19,6 +20,7 @@ import com.geekbrains.februarymaterial.extensionFun.showSnackBarAction
 import com.geekbrains.februarymaterial.extensionFun.showSnackBarNoAction
 import com.geekbrains.februarymaterial.extensionFun.showToastShort
 import com.geekbrains.februarymaterial.view.MainActivity
+import com.geekbrains.februarymaterial.view.animations.AnimationFragment
 import com.geekbrains.februarymaterial.view.bottomNavigation.BottomNavigationDrawerFragment
 import com.geekbrains.februarymaterial.view.chips.ChipsFragment
 import com.geekbrains.februarymaterial.viewmodel.PictureOfTheDayAppState
@@ -51,7 +53,7 @@ class PictureOfTheDayFragment : Fragment() {
 
         menuActionBar() /*Для menu and actionBar*/
         bottomSheetBehavior() /*Для bottomSheetBehavior*/
-        fabClick() /*FloatActionButtonClick*/
+        //fabClick() /*FloatActionButtonClick*/
         chipsClick() /*Переключение дней*/
         wikipediaSearch() /*Поиск wikipedia*/
 
@@ -94,6 +96,7 @@ class PictureOfTheDayFragment : Fragment() {
                         data = Uri.parse(pictureOfTheDayAppState.serverResponseData.url)
                     })
                 }
+                binding.includedBsl.image.load(pictureOfTheDayAppState.serverResponseData.url)
                 binding.textViewDate.text = pictureOfTheDayAppState.serverResponseData.date
                 binding.imageView.visibility = View.VISIBLE
                 binding.cardViewMain.visibility = View.VISIBLE
@@ -112,7 +115,7 @@ class PictureOfTheDayFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.app_bar_fav ->
-                Toast.makeText(requireContext(),"app_bar_fav",Toast.LENGTH_SHORT).show()
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.container_main_activity, AnimationFragment.newInstance()).commit()
             R.id.app_bar_settings ->
                 requireActivity().supportFragmentManager.beginTransaction().replace(R.id.container_main_activity, ChipsFragment.newInstance()).addToBackStack("").commit()
             android.R.id.home ->  {
@@ -133,26 +136,34 @@ class PictureOfTheDayFragment : Fragment() {
         /*Выдвижная панель*/
         bottomSheetBehavior = BottomSheetBehavior.from(binding.includedBsl.bottomSheetContainer) //извлекаем behavior
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_SETTLING // Задаем как выдвигать
-        bottomSheetBehavior.setPeekHeight(450,true) //Выдвигаем только на 200 вверх
+        bottomSheetBehavior.setPeekHeight(0,true) //Выдвигаем только на 200 вверх
         bottomSheetBehavior.setHideable(false) //указываем можно скрыть или нет
 
+        binding.includedBsl.bottomSheetDescription.visibility =  View.GONE
+        binding.includedBsl.bottomSheetDate.visibility = View.GONE
+        binding.includedBsl.image.visibility = View.GONE
+
+
         /*Кликаем и выдвигаем панель*/
-        binding.includedBsl.bottomSheetContainer.setOnClickListener {
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+        binding.fabSheet.setOnClickListener {
+             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
+/*        binding.includedBsl.bottomSheetContainer.setOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_DRAGGING
+        }*/
 
         /*Ловим как выдвигается состояния*/
         bottomSheetBehavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 when (newState) {
-                    /*НАДО ИЗУЧИТЬ ПРИ КАКИХ ДЕЙСТВИЯХ ЧТО БУДЕТ*/
-                    /*BottomSheetBehavior.STATE_DRAGGING -> TODO("not implemented")
-                    BottomSheetBehavior.STATE_COLLAPSED -> TODO("not implemented")
-                    BottomSheetBehavior.STATE_EXPANDED -> TODO("not implemented")
-                    BottomSheetBehavior.STATE_HALF_EXPANDED -> TODO("not implemented")
-                    BottomSheetBehavior.STATE_HIDDEN -> TODO("not implemented")
-                    BottomSheetBehavior.STATE_SETTLING -> TODO("not implemented")*/
+                   /* НАДО ИЗУЧИТЬ ПРИ КАКИХ ДЕЙСТВИЯХ ЧТО БУДЕТ*/
+//                    BottomSheetBehavior.STATE_DRAGGING -> animationBottomSheetBehavior()
+//                    BottomSheetBehavior.STATE_COLLAPSED -> TODO("not implemented")
+                      BottomSheetBehavior.STATE_EXPANDED -> animationBottomSheetBehavior()
+//                    BottomSheetBehavior.STATE_HALF_EXPANDED -> TODO("not implemented")
+//                    BottomSheetBehavior.STATE_HIDDEN -> TODO("not implemented")
+//                    BottomSheetBehavior.STATE_SETTLING -> TODO("not implemented")
                 }
             }
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
@@ -162,8 +173,24 @@ class PictureOfTheDayFragment : Fragment() {
         })
     }
 
+    private fun animationBottomSheetBehavior() {
+        val transition = TransitionSet()
+        val slide = Slide()
+        slide.duration = 2000
+        val changeBounds = ChangeBounds()
+        changeBounds.duration = 2000
+        transition.ordering = TransitionSet.ORDERING_SEQUENTIAL
+        transition.addTransition(slide)
+        transition.addTransition(changeBounds)
+        TransitionManager.beginDelayedTransition(binding.includedBsl.bottomSheetContainer, transition)
+
+        binding.includedBsl.bottomSheetDescription.visibility =  View.VISIBLE
+        binding.includedBsl.bottomSheetDate.visibility = View.VISIBLE
+        binding.includedBsl.image.visibility = View.VISIBLE
+    }
+    
     /*FloatActionButtonClick*/
-    private fun fabClick(){
+/*    private fun fabClick(){
         var isMainClick: Boolean = true
 
         binding.fab.setOnClickListener{
@@ -180,7 +207,7 @@ class PictureOfTheDayFragment : Fragment() {
             }
             isMainClick = !isMainClick
         }
-    }
+    }*/
 
     private fun wikipediaSearch() {
         /*Сетим в поиск введёный текст в поиск WIKIPEDIA*/
@@ -225,4 +252,4 @@ class PictureOfTheDayFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-}
+    }

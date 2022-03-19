@@ -49,7 +49,6 @@
             android:layout_height="wrap_content"
             app:barrierDirection="top"
             app:constraint_referenced_ids="chipGroup" />
-        <!--  app:layout_constraintGuide_begin="10dp"-->
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/barrierChipGroupBottom"
@@ -186,6 +185,16 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabSheet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:layout_anchor="@+id/bottom_app_bar"
+        app:layout_anchorGravity="top|end"
+        app:layout_dodgeInsetEdges="end"
+        app:srcCompat="@drawable/ic_airplanemode" />
+
     <!--Выдвижная панель-->
     <include
         android:id="@+id/included_bsl"
@@ -207,14 +216,14 @@
         app:menu="@menu/menu_bottom_bar"
         app:navigationIcon="@drawable/ic_hamburger_menu_bottom_bar" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
         app:layout_anchor="@id/bottom_app_bar"
         app:layout_dodgeInsetEdges="end"
-        app:srcCompat="@drawable/ic_plus_fab" />
+        app:srcCompat="@drawable/ic_plus_fab" />-->
 
     <!--Если спрятать всё в группу-->
     <androidx.constraintlayout.widget.Group
