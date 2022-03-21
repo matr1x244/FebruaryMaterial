@@ -22,20 +22,21 @@ class ButtonBehavior (context: Context, attr:AttributeSet?=null): CoordinatorLay
         dependency: View
     ): Boolean {
 
-        val bar = dependency as AppBarLayout //связываем с appbar
-        val barHeight = bar.height.toFloat()
-        val barY = bar.y
+        if (dependency is AppBarLayout) {
+            val bar = dependency //связываем с appbar
+            val barHeight = bar.height.toFloat()
+            val barY = bar.y
 
-        /*Скрываем кнопку по условию*/
-        /*NestedScrollView - child в данном проекте*/
-        if(abs(barY)>(barHeight*3/3)){
-            child.visibility = View.GONE
-        }else{
-            child.visibility = View.VISIBLE
-            child.alpha = ((barHeight*1/3)-abs(barY/2))/(barHeight*1/3) //плавное исчезание
+            /*Скрываем кнопку по условию*/
+            /*NestedScrollView - child в данном проекте*/
+
+            if (abs(barY) > (barHeight * 3 / 3)) {
+                child.visibility = View.GONE
+            } else {
+                child.visibility = View.VISIBLE
+                child.alpha = ((barHeight * 1 / 3) - abs(barY / 2)) / (barHeight * 1 / 3) //плавное исчезание
+            }
         }
-
         return super.onDependentViewChanged(parent, child, dependency)
     }
-
 }

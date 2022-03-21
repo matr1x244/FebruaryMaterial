@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -176,6 +177,7 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
     private fun animationBottomSheetBehavior() {
+        var flag = false
         val transition = TransitionSet()
         val slide = Slide()
         slide.duration = 2000
@@ -189,7 +191,16 @@ class PictureOfTheDayFragment : Fragment() {
         binding.includedBsl.bottomSheetDate.visibility = View.VISIBLE
         //binding.includedBsl.bottomSheetCopyright.visibility = View.VISIBLE
         binding.includedBsl.image.visibility = View.VISIBLE
+
+        binding.imageView.setOnClickListener {
+            val changeBounds = ChangeImageTransform()
+            changeBounds.duration = 3000
+            TransitionManager.beginDelayedTransition(binding.includedBsl.bottomSheetContainer, changeBounds)
+            flag = !flag
+            binding.imageView.scaleType = if (flag) ImageView.ScaleType.CENTER else ImageView.ScaleType.CENTER_INSIDE
+        }
     }
+
 
     /*FloatActionButtonClick*/
 /*    private fun fabClick(){

@@ -5,6 +5,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.transition.*
@@ -39,6 +40,7 @@ class AnimationFragment: Fragment() {
 
         //animationFade()
         animationSlide()
+        zoomImageClick()
     }
 
 
@@ -72,6 +74,16 @@ class AnimationFragment: Fragment() {
             TransitionManager.beginDelayedTransition(binding.transitionsContainer,transition)
             flag = !flag
             binding.text.visibility =  if(flag) View.VISIBLE else View.GONE
+        }
+    }
+
+    private fun zoomImageClick() {
+        binding.image.setOnClickListener {
+            val changeBounds = ChangeImageTransform()
+            changeBounds.duration = 3000
+            TransitionManager.beginDelayedTransition(binding.transitionsContainer, changeBounds)
+            flag = !flag
+            binding.image.scaleType = if (flag) ImageView.ScaleType.FIT_START else ImageView.ScaleType.FIT_END
         }
     }
 
