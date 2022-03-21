@@ -1,6 +1,7 @@
 package com.geekbrains.februarymaterial.view.main
 
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -28,6 +29,7 @@ import com.geekbrains.februarymaterial.viewmodel.PictureOfTheDayAppState
 import com.geekbrains.februarymaterial.viewmodel.PictureOfTheDayViewModel
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlinx.coroutines.delay
 
 
 class PictureOfTheDayFragment : Fragment() {
@@ -136,7 +138,7 @@ class PictureOfTheDayFragment : Fragment() {
     private fun bottomSheetBehavior(){
         /*Выдвижная панель*/
         bottomSheetBehavior = BottomSheetBehavior.from(binding.includedBsl.bottomSheetContainer) //извлекаем behavior
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_SETTLING // Задаем как выдвигать
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED // Задаем как выдвигать
         bottomSheetBehavior.setPeekHeight(0,true) //Выдвигаем только на 200 вверх
         bottomSheetBehavior.setHideable(false) //указываем можно скрыть или нет
 
@@ -148,8 +150,16 @@ class PictureOfTheDayFragment : Fragment() {
 
 
         /*Кликаем и выдвигаем панель*/
+        var fabSheet = false
         binding.fabSheet.setOnClickListener {
-             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            fabSheet = !fabSheet
+            if (fabSheet) {
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                rotateFabSheet()
+            } else {
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                rotateFabSheet()
+            }
         }
 /*        binding.includedBsl.bottomSheetContainer.setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_DRAGGING
@@ -175,6 +185,20 @@ class PictureOfTheDayFragment : Fragment() {
             }
         })
     }
+
+    private fun rotateFabSheet(){
+        var flag = false
+        var duration = 3000L
+        flag = !flag
+            if (flag) {
+                ObjectAnimator.ofFloat(binding.fabSheet, View.ROTATION, 0f, 405f)
+                    .setDuration(duration).start()
+            } else{
+                ObjectAnimator.ofFloat( binding.fabSheet,View.ROTATION,405f,200f)
+                    .setDuration(duration).start()
+            }
+        }
+
 
     private fun animationBottomSheetBehavior() {
         var flag = false

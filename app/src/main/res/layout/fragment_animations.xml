@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/transitionsContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -26,6 +27,25 @@
         android:layout_height="247dp"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_nasa_foreground_drawable" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabRotateFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="16dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/ic_airplanemode" />
+
+    <ImageView
+        android:id="@+id/plusImageview"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="5dp"
+        android:elevation="10dp"
+        app:srcCompat="@drawable/ic_airplanemode" />
 
     <LinearLayout
         android:id="@+id/textRandomConteiner"

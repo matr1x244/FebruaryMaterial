@@ -1,5 +1,6 @@
 package com.geekbrains.februarymaterial.view.animations
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.transition.*
+import com.geekbrains.februarymaterial.R
 import com.geekbrains.februarymaterial.databinding.FragmentAnimationsBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
@@ -43,6 +45,19 @@ class AnimationFragment: Fragment() {
         zoomImageClick()
         //buttonRace()
         textRandomShuffle()
+        rotateFab()
+        nextFragment()
+    }
+
+    private fun nextFragment() {
+        binding.plusImageview.setOnClickListener {
+            requireActivity()
+                .supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.container_main_activity, AnimationFragmentRotateFab.newInstance())
+                .addToBackStack("null")
+                .commit()
+        }
     }
 
 
@@ -105,7 +120,7 @@ class AnimationFragment: Fragment() {
     private fun textRandomShuffle(){
         val titles: MutableList<String> = ArrayList()
         titles.add(0,"рэндом тест")
-        
+
         repeat(5) {
             titles.add("item $it")
         }
@@ -120,6 +135,24 @@ class AnimationFragment: Fragment() {
                 })
             }
         }
+    }
+
+    private fun rotateFab(){
+        var duration = 1000L
+        binding.fabRotateFragment.setOnClickListener {
+        flag = !flag
+        if (flag) {
+            ObjectAnimator.ofFloat(binding.fabRotateFragment, View.ROTATION, 0f, 405f)
+                .setDuration(duration).start()
+            } else{
+            ObjectAnimator.ofFloat( binding.fabRotateFragment,View.ROTATION,405f,0f)
+                .setDuration(duration).start()
+            ObjectAnimator.ofFloat( binding.plusImageview,View.ROTATION,405f,0f)
+                .setDuration(duration).start()
+            ObjectAnimator.ofFloat( binding.image,View.ROTATION,850f,180f)
+                .setDuration(duration).start()
+            }
+         }
     }
 
     override fun onDestroyView() {
