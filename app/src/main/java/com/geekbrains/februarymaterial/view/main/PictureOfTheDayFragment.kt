@@ -141,7 +141,9 @@ class PictureOfTheDayFragment : Fragment() {
 
         binding.includedBsl.bottomSheetDescription.visibility =  View.GONE
         binding.includedBsl.bottomSheetDate.visibility = View.GONE
+        //binding.includedBsl.bottomSheetCopyright.visibility = View.GONE
         binding.includedBsl.image.visibility = View.GONE
+
 
 
         /*Кликаем и выдвигаем панель*/
@@ -183,12 +185,12 @@ class PictureOfTheDayFragment : Fragment() {
         transition.addTransition(slide)
         transition.addTransition(changeBounds)
         TransitionManager.beginDelayedTransition(binding.includedBsl.bottomSheetContainer, transition)
-
         binding.includedBsl.bottomSheetDescription.visibility =  View.VISIBLE
         binding.includedBsl.bottomSheetDate.visibility = View.VISIBLE
+        //binding.includedBsl.bottomSheetCopyright.visibility = View.VISIBLE
         binding.includedBsl.image.visibility = View.VISIBLE
     }
-    
+
     /*FloatActionButtonClick*/
 /*    private fun fabClick(){
         var isMainClick: Boolean = true
