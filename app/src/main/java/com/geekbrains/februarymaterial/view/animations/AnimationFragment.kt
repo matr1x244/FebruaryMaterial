@@ -6,7 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.transition.*
 import com.geekbrains.februarymaterial.databinding.FragmentAnimationsBinding
@@ -20,9 +23,6 @@ class AnimationFragment: Fragment() {
 
     private var _binding: FragmentAnimationsBinding? = null
     private val binding get() = _binding!!
-
-    /*Выдвижная панель*/
-    private lateinit var bottomSheetBehavior : BottomSheetBehavior<ConstraintLayout> //<Всегда нужен контейнер>
 
     var flag = false
 
@@ -39,8 +39,10 @@ class AnimationFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //animationFade()
-        animationSlide()
+        //animationSlide()
         zoomImageClick()
+        //buttonRace()
+        textRandomShuffle()
     }
 
 
@@ -84,6 +86,39 @@ class AnimationFragment: Fragment() {
             TransitionManager.beginDelayedTransition(binding.transitionsContainer, changeBounds)
             flag = !flag
             binding.image.scaleType = if (flag) ImageView.ScaleType.FIT_START else ImageView.ScaleType.FIT_END
+        }
+    }
+
+    private fun buttonRace(){
+        binding.button.setOnClickListener {
+        val changeBounds = ChangeBounds()
+        changeBounds.duration= 5000
+        changeBounds.setPathMotion(ArcMotion())
+        TransitionManager.beginDelayedTransition(binding.root,changeBounds)
+        flag = !flag
+        val params = binding.button.layoutParams as LinearLayout.LayoutParams
+        params.gravity = if(flag) Gravity.BOTTOM or Gravity.START else Gravity.CENTER or Gravity.END
+        binding.button.layoutParams = params
+    }
+}
+
+    private fun textRandomShuffle(){
+        val titles: MutableList<String> = ArrayList()
+        titles.add(0,"рэндом тест")
+        
+        repeat(5) {
+            titles.add("item $it")
+        }
+        binding.button.setOnClickListener {
+            TransitionManager.beginDelayedTransition(binding.textRandomConteiner)
+            titles.shuffle()
+            binding.textRandomConteiner.removeAllViews()
+            titles.forEach { title:String->
+                binding.textRandomConteiner.addView(TextView(context).apply {
+                    text = title
+                    ViewCompat.setTransitionName(this,title)
+                })
+            }
         }
     }
 
