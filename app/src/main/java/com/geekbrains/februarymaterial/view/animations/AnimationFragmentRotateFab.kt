@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.geekbrains.februarymaterial.R
 import com.geekbrains.februarymaterial.databinding.FragmentAnimationsRotateFabBinding
 
 class AnimationFragmentRotateFab: Fragment() {
@@ -34,7 +35,14 @@ class AnimationFragmentRotateFab: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        nextFragment()
         rotateFab()
+    }
+
+    private fun nextFragment(){
+        binding.optionTwoTextview.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.container_main_activity, AnimationFragmentListAnimator.newInstance()).commit()
+        }
     }
 
         private fun rotateFab(){
@@ -47,7 +55,7 @@ class AnimationFragmentRotateFab: Fragment() {
 
             binding.optionOneContainer.animate()
                 .alpha(1f)
-                .setDuration(duration/2)
+                .setDuration(duration*4)
                 .setListener(object : AnimatorListenerAdapter(){
                     override fun onAnimationEnd(animation: Animator?) {
                         super.onAnimationEnd(animation)
@@ -56,7 +64,7 @@ class AnimationFragmentRotateFab: Fragment() {
                 })
             binding.optionTwoContainer.animate()
                 .alpha(1f)
-                .setDuration(duration/2)
+                .setDuration(duration*4)
                 .setListener(object : AnimatorListenerAdapter(){
                     override fun onAnimationEnd(animation: Animator?) {
                         super.onAnimationEnd(animation)
@@ -96,4 +104,5 @@ class AnimationFragmentRotateFab: Fragment() {
             }
         }
     }
+
 }

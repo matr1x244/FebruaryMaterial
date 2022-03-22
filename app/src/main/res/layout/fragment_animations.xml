@@ -47,6 +47,11 @@
         android:elevation="10dp"
         app:srcCompat="@drawable/ic_airplanemode" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="нажми"/>
+
     <LinearLayout
         android:id="@+id/textRandomConteiner"
         android:layout_width="wrap_content"
