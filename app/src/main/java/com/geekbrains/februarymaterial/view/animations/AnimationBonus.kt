@@ -1,6 +1,8 @@
 package com.geekbrains.februarymaterial.view.animations
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.ChangeBounds
+import androidx.transition.Transition
 import androidx.transition.TransitionManager
 import coil.load
 import com.geekbrains.februarymaterial.R
@@ -41,7 +44,8 @@ class AnimationBonus: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bonusAnimator()
+        //bonusAnimatorTwoMaket() //макет start и end
+        bonusAnimatorOneMaket() //макет start
         testServer()
 
     }
@@ -68,7 +72,7 @@ class AnimationBonus: Fragment() {
         }
     }
 
-    private fun bonusAnimator (){
+    private fun bonusAnimatorTwoMaket (){
         var flag = false
         binding.backgroundImage.setOnClickListener {
             flag = !flag
@@ -89,6 +93,77 @@ class AnimationBonus: Fragment() {
 
                 val constraintSet= ConstraintSet()
                 constraintSet.clone(context, R.layout.fragment_animations_bonus_start)
+                constraintSet.applyTo(binding.constraintContainer)
+            }
+        }
+    }
+
+    private fun bonusAnimatorOneMaket(){
+        var flag = false
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(binding.constraintContainer)
+
+        binding.backgroundImage.setOnClickListener {
+            flag = !flag
+            val changeBounds = ChangeBounds()
+            changeBounds.interpolator = AnticipateOvershootInterpolator(2.0f)
+            changeBounds.duration= 1000L
+            changeBounds.addListener(object : Transition.TransitionListener {
+
+                /*Возвращаем после скрытия обратно*/
+                override fun onTransitionStart(transition: Transition) {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        flag = !flag
+                        val changeBounds = ChangeBounds()
+                        changeBounds.interpolator = AnticipateOvershootInterpolator(2.0f)
+                        changeBounds.duration= 2000L
+                        TransitionManager.beginDelayedTransition(binding.constraintContainer,changeBounds)
+
+                        constraintSet.connect(R.id.title,ConstraintSet.END,R.id.backgroundImage,ConstraintSet.START) //соединяем титл
+                        constraintSet.clear(R.id.title,ConstraintSet.START)
+                        constraintSet.applyTo(binding.constraintContainer)
+                    },
+                        1000L)
+                }
+
+                /*делаем паузу на 1 сек у скрываем*/
+                override fun onTransitionEnd(transition: Transition) {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        flag = !flag
+                        val changeBounds = ChangeBounds()
+                        changeBounds.interpolator = AnticipateOvershootInterpolator(2.0f)
+                        changeBounds.duration= 1000L
+                        TransitionManager.beginDelayedTransition(binding.constraintContainer,changeBounds)
+
+                        constraintSet.connect(R.id.title,ConstraintSet.END,R.id.backgroundImage,ConstraintSet.END) //соединяем титл концом к картинке к началу
+                        constraintSet.clear(R.id.title,ConstraintSet.START)
+                        constraintSet.applyTo(binding.constraintContainer)
+                    },
+                        2000L)
+                }
+
+                override fun onTransitionCancel(transition: Transition) {
+                }
+
+                override fun onTransitionPause(transition: Transition) {
+                }
+
+                override fun onTransitionResume(transition: Transition) {
+                }
+
+            })
+
+            TransitionManager.beginDelayedTransition(binding.constraintContainer,changeBounds)
+            if(flag){
+                constraintSet.connect(R.id.title,ConstraintSet.END,R.id.constraint_container,ConstraintSet.END)
+                constraintSet.connect(R.id.title,ConstraintSet.START,R.id.constraint_container,ConstraintSet.START)
+                constraintSet.setHorizontalBias(R.id.title,0.8f)
+                constraintSet.constrainPercentWidth(R.id.title,0.5f)
+                //constraintSet.clear(R.id.title,ConstraintSet.END)
+                constraintSet.applyTo(binding.constraintContainer)
+            }else{
+                constraintSet.connect(R.id.title,ConstraintSet.END,R.id.backgroundImage,ConstraintSet.START)
+                constraintSet.clear(R.id.title,ConstraintSet.START)
                 constraintSet.applyTo(binding.constraintContainer)
             }
         }
