@@ -5,46 +5,37 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.geekbrains.februarymaterial.databinding.FragmentRecyclerItemEarthBinding
+import com.geekbrains.februarymaterial.databinding.FragmentRecyclerItemHeaderBinding
 import com.geekbrains.februarymaterial.databinding.FragmentRecyclerItemMarsBinding
 
-class RecyclerFragmentAdapter (val onClickItemListener: OnClickItemListener):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private lateinit var listData: List<Data>
+class RecyclerFragmentAdapter (val onClickItemListener: OnClickItemListener):RecyclerView.Adapter<RecyclerFragmentAdapter.BaseViewHolder>() {
 
-    fun setData(listData: List<Data>) {
+    private lateinit var listData: MutableList<Data>
+
+    fun setData(listData: MutableList<Data>) {
         this.listData = listData
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
             TYPE_EARTH -> {
-                val binding = FragmentRecyclerItemEarthBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
+                val binding = FragmentRecyclerItemEarthBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 EarthViewHolder(binding.root)
             }
+            TYPE_HEADER-> {
+                val binding = FragmentRecyclerItemHeaderBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+                HeaderViewHolder(binding.root)
+            }
             else -> {
-                val binding = FragmentRecyclerItemMarsBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
+                val binding = FragmentRecyclerItemMarsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 MarsViewHolder(binding.root)
             }
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (getItemViewType(position)) {
-            TYPE_EARTH -> {
-                (holder as EarthViewHolder).bind(listData[position])
-            }
-            else -> {
-                (holder as MarsViewHolder).bind(listData[position])
-            }
-        }
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+        holder.bind(listData[position])
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -53,9 +44,21 @@ class RecyclerFragmentAdapter (val onClickItemListener: OnClickItemListener):Rec
 
     override fun getItemCount() = listData.size
 
+    fun appendItem() { //метод генерации нового элемента
+        listData.add(generateData())
+        listData.add(Data("TEST","TEST DESCRIPTION",type = TYPE_EARTH))
+        //notifyDataSetChanged() //заливаем и перерисовываем полностью все изменения (перезагрузит весь RecyclerView)
+        notifyItemInserted(listData.size -1) //вставляем новые данные в -1 позицию в списке
+    }
 
-    inner class EarthViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(data: Data) {
+    fun generateData() = Data("NEW MARS", type = TYPE_MARS) //не совсем понял
+
+    abstract class BaseViewHolder(view:View):RecyclerView.ViewHolder(view){
+        abstract fun bind(data: Data)
+    }
+
+    inner class EarthViewHolder(view: View) : BaseViewHolder(view) {
+        override fun bind(data: Data) {
             FragmentRecyclerItemEarthBinding.bind(itemView).apply {
                 tvName.text = data.name
                 tvName.setOnClickListener {
@@ -69,11 +72,30 @@ class RecyclerFragmentAdapter (val onClickItemListener: OnClickItemListener):Rec
         }
     }
 
-    inner class MarsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(data: Data) {
+    inner class MarsViewHolder(view: View) : BaseViewHolder(view) { //RecyclerView.ViewHolder
+        override fun bind(data: Data) {
             FragmentRecyclerItemMarsBinding.bind(itemView).apply {
                 tvName.text = data.name
                 ivMars.setOnClickListener {
+                    onClickItemListener.onItemClick(data)
+                }
+                addItemImageView.setOnClickListener {
+                    listData.add(layoutPosition,generateData())
+                    notifyItemInserted(layoutPosition)
+                }
+                removeItemImageView.setOnClickListener {
+                    listData.removeAt(layoutPosition)
+                    notifyItemRemoved(layoutPosition)
+                }
+            }
+        }
+    }
+
+    inner class HeaderViewHolder(view:View):BaseViewHolder(view){
+        override fun bind(data: Data){
+            FragmentRecyclerItemHeaderBinding.bind(itemView).apply {
+                tvName.text = data.name
+                itemView.setOnClickListener {
                     onClickItemListener.onItemClick(data)
                 }
             }

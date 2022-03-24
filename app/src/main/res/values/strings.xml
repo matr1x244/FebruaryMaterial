@@ -12,6 +12,7 @@
     <string name="system">System</string>
     <string name="mars">Mars</string>
     <string name="earth">Earth</string>
+    <string name="header">Header RecyclerView</string>
     <!--renderData состояние-->
     <string name="error_load">Ошибка загрузки</string>
     <string name="reload">Обновить</string>
