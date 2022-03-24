@@ -118,7 +118,7 @@ class PictureOfTheDayFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.app_bar_fav ->
-                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.container_main_activity, AnimationFragment.newInstance()).commit()
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.container_main_activity, AnimationFragment.newInstance()).addToBackStack("").commit()
             R.id.app_bar_settings ->
                 requireActivity().supportFragmentManager.beginTransaction().replace(R.id.container_main_activity, ChipsFragment.newInstance()).addToBackStack("").commit()
             android.R.id.home ->  {

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name_title">NASA MD</string>
+    <!--Базовые названия-->
+    <string name="photo_of_the_day_stub">Фото дня</string>
+    <string name="search_wiki">Найти в Википедии</string>
+    <string name="wiki_helper_text">Поищите термин в википедии</string>
+    <string name="animation">Анимация</string>
+    <string name="settings">Настройки</string>
+    <string name="search">Поиск</string>
+    <string name="imageDesc">Картинка</string>
+    <string name="system">Система</string>
+    <string name="mars">Марс</string>
+    <string name="earth">Земля</string>
+    <!--renderData состояние-->
+    <string name="error_load">Ошибка загрузки</string>
+    <string name="reload">Обновить</string>
+    <string name="load">Загрузка</string>
+    <string name="success">Успешно</string>
+    <string name="error_connection">Успешно</string>
+    <!--Темы-->
+    <string name="theme_earth">Тема Земля</string>
+    <string name="theme_mars">Тема Марсиянин</string>
+    <string name="theme_standart">Стандартная тема</string>
+    <string name="theme_day">Тема дневная</string>
+    <string name="theme_night">Тема ночная</string>
+
+
+    <string name="large_text">
+        "Material is the metaphor.\n\n"
+        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
+        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
+        "tehnologically advanced and open to imagination and magic.\n"
+    </string>
+
+</resources>

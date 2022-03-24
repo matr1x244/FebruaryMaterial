@@ -4,15 +4,19 @@
         <item
             android:id="@+id/navigation_one"
             android:icon="@drawable/ic_archive"
-            android:title="Экран номер 1 без bottomNav" />
+            android:title="Экран TABS" />
         <item
             android:id="@+id/navigation_two"
             android:icon="@drawable/ic_send"
-            android:title="Экран номер 2 с bottomNav" />
+            android:title="Экран BOTTOM NAVIGRATION" />
         <item
             android:id="@+id/navigation_three"
             android:icon="@drawable/ic_send"
-            android:title="Layout Activity" />
+            android:title="Экран Layout Activity" />
+        <item
+            android:id="@+id/navigation_four"
+            android:icon="@drawable/ic_nasa_foreground_drawable"
+            android:title="Экран RecyclerView" />
     </group>
 
 </menu>

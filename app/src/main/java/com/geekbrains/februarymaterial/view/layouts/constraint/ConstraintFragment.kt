@@ -49,7 +49,7 @@ class ConstraintFragment : Fragment() {
         viewModel.sendServerRequest()
     }
 
-    private fun renderData(pictureOfTheDayAppState: PictureOfTheDayAppState) {
+   private fun renderData(pictureOfTheDayAppState: PictureOfTheDayAppState) {
         when (pictureOfTheDayAppState) {
             is PictureOfTheDayAppState.Error -> {
                 binding.fragmentConstraint.visibility = View.GONE
