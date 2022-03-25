@@ -38,23 +38,39 @@ class RecyclerFragment: Fragment() {
     }
 
     private fun OneRecyclerTest() {
+
+        /*для раскрывающего списка с примерами*/
+        val lat = 20
+        val lon = 23
+        val time = 23
+
+        val myCoordinate1 = lat to lon
+        myCoordinate1.first// то же самое что и lat /состояние №1
+        myCoordinate1.second// то же самое что и lon /состояние №1
+
+        val myCoordinate2 = Pair(lat, lon)
+        myCoordinate2.first// то же самое что и lat
+        myCoordinate2.second// то же самое что и lon
+
+        val myCoordinate3 = Triple(lat, lon, time)
+        myCoordinate3.first// то же самое что и lat
+        myCoordinate3.second// то же самое что и lon
+        myCoordinate3.third// то же самое что и time
+
+
         val listData = arrayListOf(
 
-            Data(getString(R.string.earth), "Дополнительный текст"),
-            Data(getString(R.string.earth), "Дополнительный текст"),
-            Data(getString(R.string.earth), "Дополнительный текст"),
-            Data(getString(R.string.earth), "Дополнительный текст"),
-            Data(getString(R.string.earth), "Дополнительный текст"),
-            Data(getString(R.string.mars), type = TYPE_MARS),
-            Data(getString(R.string.mars), type = TYPE_MARS),
-            Data(getString(R.string.mars), type = TYPE_MARS),
-            Data(getString(R.string.mars), type = TYPE_MARS),
-            Data(getString(R.string.mars), type = TYPE_MARS),
-            Data(getString(R.string.mars), type = TYPE_MARS),
-            Data(getString(R.string.mars), type = TYPE_MARS)
+            Pair(Data(getString(R.string.earth), "Дополнительный текст"),false),
+            Pair(Data(getString(R.string.earth), "Дополнительный текст"),false),
+            Pair(Data(getString(R.string.earth), "Дополнительный текст"),false),
+            Pair(Data(getString(R.string.earth), "Дополнительный текст"),false),
+            Pair(Data(getString(R.string.mars), type = TYPE_MARS),false),
+            Pair(Data(getString(R.string.mars), type = TYPE_MARS),false),
+            Pair(Data(getString(R.string.mars), type = TYPE_MARS),false),
+
         )
         listData.shuffle() //перемешиваем
-        listData.add(0,Data(getString(R.string.header), type = TYPE_HEADER)) //сетим хедер как элемент списка
+        listData.add(0,Pair(Data(getString(R.string.header), type = TYPE_HEADER),false)) //сетим хедер как элемент списка
 
         val adapter = RecyclerFragmentAdapter { dataClick ->
             Toast.makeText(context,"Мы супер ${dataClick.name}", Toast.LENGTH_SHORT).show()
