@@ -44,14 +44,16 @@ class RecyclerFragmentAdapter (val onClickItemListener: OnClickItemListener):Rec
 
     override fun getItemCount() = listData.size
 
+
     fun appendItem() { //метод генерации нового элемента
         listData.add(generateData())
         listData.add(Data("TEST","TEST DESCRIPTION",type = TYPE_EARTH))
         //notifyDataSetChanged() //заливаем и перерисовываем полностью все изменения (перезагрузит весь RecyclerView)
-        notifyItemInserted(listData.size -1) //вставляем новые данные в -1 позицию в списке
+        notifyItemInserted(listData.size-1) //вставляем новые данные в -1 позицию в списке плавно с анимацией
     }
 
-    fun generateData() = Data("NEW MARS", type = TYPE_MARS) //не совсем понял
+
+    fun generateData() = Data("NEW MARS", type = TYPE_MARS) //не совсем понял а смысл так выносить если одни данные
 
     abstract class BaseViewHolder(view:View):RecyclerView.ViewHolder(view){
         abstract fun bind(data: Data)
@@ -80,12 +82,30 @@ class RecyclerFragmentAdapter (val onClickItemListener: OnClickItemListener):Rec
                     onClickItemListener.onItemClick(data)
                 }
                 addItemImageView.setOnClickListener {
-                    listData.add(layoutPosition,generateData())
+                    listData.add(layoutPosition, generateData())
                     notifyItemInserted(layoutPosition)
                 }
                 removeItemImageView.setOnClickListener {
                     listData.removeAt(layoutPosition)
                     notifyItemRemoved(layoutPosition)
+                }
+                moveItemUp.setOnClickListener {
+                    /*Фиксируем что выше header (0) нельзя подняться*/
+                    if (layoutPosition > 1) {
+                        listData.removeAt(layoutPosition).apply {
+                            listData.add(layoutPosition - 1, this)
+                            notifyItemMoved(layoutPosition, layoutPosition - 1)
+                        }
+                    }
+                }
+                moveItemDown.setOnClickListener {
+                    /*Фиксируем что есть конец списка и нельзя уйти ниже*/
+                    if (layoutPosition < listData.size - 1) {
+                        listData.removeAt(layoutPosition).apply {
+                            listData.add(layoutPosition + 1, this)
+                            notifyItemMoved(layoutPosition, layoutPosition + 1)
+                        }
+                    }
                 }
             }
         }

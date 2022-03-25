@@ -1,7 +1,6 @@
 package com.geekbrains.februarymaterial.view.recycler
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
+
 import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +10,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.geekbrains.februarymaterial.R
 import com.geekbrains.februarymaterial.databinding.FragmentRecyclerBinding
-import kotlinx.coroutines.delay
 
 class RecyclerFragment: Fragment() {
 
@@ -41,6 +39,7 @@ class RecyclerFragment: Fragment() {
 
     private fun OneRecyclerTest() {
         val listData = arrayListOf(
+
             Data(getString(R.string.earth), "Дополнительный текст"),
             Data(getString(R.string.earth), "Дополнительный текст"),
             Data(getString(R.string.earth), "Дополнительный текст"),
@@ -63,6 +62,7 @@ class RecyclerFragment: Fragment() {
 
         adapter.setData(listData)
         binding.recyclerView.adapter = adapter
+        //binding.recyclerView.setHasFixedSize(true)
 
         binding.recyclerActivityFAB.setOnClickListener {
             flag = !flag
@@ -73,7 +73,7 @@ class RecyclerFragment: Fragment() {
                     ObjectAnimator.ofFloat( binding.recyclerActivityFAB,View.ROTATION,405f,0f).setDuration(2000L).start()
                     adapter.appendItem()
             }
-                 binding.recyclerView.smoothScrollToPosition(adapter.itemCount) //скролим к новым позициям в списке
+            binding.recyclerView.smoothScrollToPosition(adapter.itemCount) //скролим к новым позициям в списке плавно
         }
     }
 
