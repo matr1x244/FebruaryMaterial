@@ -6,18 +6,31 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.MotionEventCompat
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.geekbrains.februarymaterial.databinding.FragmentRecyclerItemEarthBinding
 import com.geekbrains.februarymaterial.databinding.FragmentRecyclerItemHeaderBinding
 import com.geekbrains.februarymaterial.databinding.FragmentRecyclerItemMarsBinding
+import com.geekbrains.februarymaterial.view.recycler.diffutils.Change
+import com.geekbrains.februarymaterial.view.recycler.diffutils.DiffUtilsCallback
+import com.geekbrains.februarymaterial.view.recycler.diffutils.createCombinePayLoads
 
 
 class RecyclerFragmentAdapter (val onClickItemListener: OnClickItemListener,val onStartDragListener: OnStartDragListener): RecyclerView.Adapter<RecyclerFragmentAdapter.BaseViewHolder>(), ItemTouchHelperAdapter {
 
-    private lateinit var listData: MutableList<Pair<Data, Boolean>>
+    //private lateinit var listData: MutableList<Pair<Data, Boolean>> // без diffutils
+    var listData: MutableList<Pair<Data, Boolean>> = mutableListOf()
 
-    fun setData(listData: MutableList<Pair<Data, Boolean>>) {
-        this.listData = listData
+    /*Сетим в адаптер лист*/
+    fun setData(newlistData: MutableList<Pair<Data, Boolean>>) {
+        /*Сравниваем данные и считаем через calculateDiff два списка старый и новый*/
+        val result = DiffUtil.calculateDiff(DiffUtilsCallback(this.listData, newlistData))
+        /*Применяем к адаптеру payloads*/
+        result.dispatchUpdatesTo(this)
+        /*старую listdata обнуляем*/
+        listData.clear()
+        /*Добавляем новую listdata*/
+        listData.addAll(newlistData)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -53,6 +66,27 @@ class RecyclerFragmentAdapter (val onClickItemListener: OnClickItemListener,val 
         holder.bind(listData[position])
     }
 
+    /*diffutils*/
+    override fun onBindViewHolder(
+        holder: BaseViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        /*если payload не пустые тогда отрисовываем данные*/
+        if(payloads.isNotEmpty()&&holder is MarsViewHolder){
+            val oldData = createCombinePayLoads(payloads as List<Change<Pair<Data,Boolean>>>).oldData
+            val newData = createCombinePayLoads(payloads as List<Change<Pair<Data,Boolean>>>).newData
+
+            if(newData.first.name != oldData.first.name)
+            FragmentRecyclerItemMarsBinding.bind(holder.itemView).tvName.text = newData.first.name
+
+           /* if(newData.first.description != oldData.first.description)
+                FragmentRecyclerItemMarsBinding.bind(holder.itemView).marsDescriptionTextView.text = newData.first.description*/
+        } else{
+            super.onBindViewHolder(holder, position, payloads)
+        }
+    }
+
     override fun getItemViewType(position: Int): Int {
         return listData[position].first.type
     }
@@ -62,14 +96,14 @@ class RecyclerFragmentAdapter (val onClickItemListener: OnClickItemListener,val 
 
     fun appendItem() { //метод генерации нового элемента
         listData.add(generateData())
-        listData.add(Pair(Data("TEST", "TEST DESCRIPTION", type = TYPE_EARTH), false))
+        listData.add(Pair(Data(name = "TEST", description =  "TEST DESCRIPTION", type = TYPE_EARTH), false))
 
         //notifyDataSetChanged() //заливаем и перерисовываем полностью все изменения (перезагрузит весь RecyclerView)
         notifyItemInserted(listData.size - 1) //вставляем новые данные в -1 позицию в списке плавно с анимацией
     }
 
 
-    fun generateData() = Pair(Data("NEW MARS", type = TYPE_MARS), false) //не совсем понял а смысл так выносить если одни данные
+    fun generateData() = Pair(Data(name = "NEW MARS", type = TYPE_MARS), false) //не совсем понял а смысл так выносить если одни данные
 
     abstract class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         abstract fun bind(data: Pair<Data, Boolean>)
@@ -110,6 +144,12 @@ class RecyclerFragmentAdapter (val onClickItemListener: OnClickItemListener,val 
                 tvDescription.text = data.first.description
                 ivEarth.setOnClickListener {
                     onClickItemListener.onItemClick(data.first)
+                }
+                ivEarth.setOnTouchListener { v, event ->
+                    if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) { //если нажали кнопку
+                        onStartDragListener.onStartDrag(this@EarthViewHolder)
+                    }
+                    false
                 }
             }
         }
@@ -177,7 +217,6 @@ class RecyclerFragmentAdapter (val onClickItemListener: OnClickItemListener,val 
             itemView.setBackgroundColor(0)
         }
     }
-
 
     /*interface кликабельности*/
     fun interface OnClickItemListener {

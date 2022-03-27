@@ -22,6 +22,9 @@ class RecyclerFragment: Fragment() {
     private var _binding: FragmentRecyclerBinding? = null
     private val binding get() = _binding!!
 
+    lateinit var adapter : RecyclerFragmentAdapter //для diffutils выносим адаптер
+    private var isNewList = false // какой список flag
+
     private lateinit var itemTouchHelper: ItemTouchHelper
     var flag = false
 
@@ -64,20 +67,17 @@ class RecyclerFragment: Fragment() {
 
         val listData = arrayListOf(
 
-            Pair(Data(getString(R.string.earth), "Дополнительный текст"), false),
-            Pair(Data(getString(R.string.earth), "Дополнительный текст"), false),
-            Pair(Data(getString(R.string.earth), "Дополнительный текст"), false),
-            Pair(Data(getString(R.string.earth), "Дополнительный текст"), false),
-            Pair(Data(getString(R.string.mars), type = TYPE_MARS), false),
-            Pair(Data(getString(R.string.mars), type = TYPE_MARS), false),
-            Pair(Data(getString(R.string.mars), type = TYPE_MARS), false),
+            Pair(Data(id = 1,name = getString(R.string.earth), description =  "Дополнительный текст"), false),
+            Pair(Data(id = 2,name = getString(R.string.earth), description =  "Дополнительный текст"), false),
+            Pair(Data(id = 3,name = getString(R.string.mars), type = TYPE_MARS), false),
+            Pair(Data(id = 4,name = getString(R.string.mars), type = TYPE_MARS), false)
 
             )
         listData.shuffle() //перемешиваем
-        listData.add(0, Pair(Data(getString(R.string.header), type = TYPE_HEADER), false)) //сетим хедер как элемент списка
+        listData.add(0, Pair(Data(id = 0,name = getString(R.string.header), type = TYPE_HEADER), false)) //сетим хедер как элемент списка
 
         /*привязываем интерфейсы кликабельности*/
-        val adapter = RecyclerFragmentAdapter(object : RecyclerFragmentAdapter.OnClickItemListener { //просто кликабельность
+        adapter = RecyclerFragmentAdapter(object : RecyclerFragmentAdapter.OnClickItemListener { //просто кликабельность
             override fun onItemClick(data: Data) {
                 Toast.makeText(context, "Мы супер ${data.name}", Toast.LENGTH_SHORT).show()
             }
@@ -106,10 +106,33 @@ class RecyclerFragment: Fragment() {
             binding.recyclerView.smoothScrollToPosition(adapter.itemCount) //скролим к новым позициям в списке плавно
         }
 
+        binding.recyclerDiffUltilsFAB.setOnClickListener {
+            isNewList = !isNewList
+            adapter.setData(createItemList(isNewList))
+        }
+
         /*состояние перетаскивания из коробки*/
         //ItemTouchHelper(ItemTouchHelperCallback(adapter)).attachToRecyclerView(binding.recyclerView) // связываем ItemTouchHelper с adapter на все элементы
         itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(adapter))
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)
+    }
+
+    private fun createItemList(instanceNumber: Boolean): MutableList<Pair<Data,Boolean>>{
+        return when(instanceNumber){
+            false -> arrayListOf(
+                Pair(Data(0,"header"),false),
+                Pair(Data(1,"mars"),false),
+                Pair(Data(2,"mars"),false),
+                Pair(Data(3,"mars"),false)
+            )
+            true -> arrayListOf(
+                Pair(Data(0,"header"),false),
+                Pair(Data(1,"mars"),false),
+                Pair(Data(2,"jupiter"),false),
+                Pair(Data(2,"earth"),false),
+                Pair(Data(1,"mars"),false)
+            )
+        }
     }
 
     /*перетаскиваение элемента списка в recyclerview из коробки*/
