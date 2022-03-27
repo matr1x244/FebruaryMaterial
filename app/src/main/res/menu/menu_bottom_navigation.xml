@@ -4,19 +4,19 @@
         <item
             android:id="@+id/navigation_one"
             android:icon="@drawable/ic_archive"
-            android:title="Экран TABS" />
+            android:title="Экран TABS (Activity)" />
         <item
             android:id="@+id/navigation_two"
             android:icon="@drawable/ic_send"
-            android:title="Экран BOTTOM NAVIGRATION" />
+            android:title="Экран BOTTOM NAVIGRATION (Activity)" />
         <item
             android:id="@+id/navigation_three"
             android:icon="@drawable/ic_send"
-            android:title="Экран Layout Activity" />
+            android:title="Экран Layout (Activity)" />
         <item
             android:id="@+id/navigation_four"
             android:icon="@drawable/ic_nasa_foreground_drawable"
-            android:title="Экран RecyclerView" />
+            android:title="Экран RecyclerView (Fragment)" />
     </group>
 
 </menu>

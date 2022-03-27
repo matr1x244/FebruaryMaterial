@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.geekbrains.februarymaterial.R
 import com.geekbrains.februarymaterial.databinding.FragmentRecyclerBinding
 
@@ -16,9 +18,11 @@ class RecyclerFragment: Fragment() {
     companion object {
         fun newInstance() = RecyclerFragment()
     }
+
     private var _binding: FragmentRecyclerBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var itemTouchHelper: ItemTouchHelper
     var flag = false
 
     override fun onCreateView(
@@ -26,7 +30,7 @@ class RecyclerFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentRecyclerBinding.inflate(inflater,container,false)
+        _binding = FragmentRecyclerBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -60,38 +64,92 @@ class RecyclerFragment: Fragment() {
 
         val listData = arrayListOf(
 
-            Pair(Data(getString(R.string.earth), "Дополнительный текст"),false),
-            Pair(Data(getString(R.string.earth), "Дополнительный текст"),false),
-            Pair(Data(getString(R.string.earth), "Дополнительный текст"),false),
-            Pair(Data(getString(R.string.earth), "Дополнительный текст"),false),
-            Pair(Data(getString(R.string.mars), type = TYPE_MARS),false),
-            Pair(Data(getString(R.string.mars), type = TYPE_MARS),false),
-            Pair(Data(getString(R.string.mars), type = TYPE_MARS),false),
+            Pair(Data(getString(R.string.earth), "Дополнительный текст"), false),
+            Pair(Data(getString(R.string.earth), "Дополнительный текст"), false),
+            Pair(Data(getString(R.string.earth), "Дополнительный текст"), false),
+            Pair(Data(getString(R.string.earth), "Дополнительный текст"), false),
+            Pair(Data(getString(R.string.mars), type = TYPE_MARS), false),
+            Pair(Data(getString(R.string.mars), type = TYPE_MARS), false),
+            Pair(Data(getString(R.string.mars), type = TYPE_MARS), false),
 
-        )
+            )
         listData.shuffle() //перемешиваем
-        listData.add(0,Pair(Data(getString(R.string.header), type = TYPE_HEADER),false)) //сетим хедер как элемент списка
+        listData.add(0, Pair(Data(getString(R.string.header), type = TYPE_HEADER), false)) //сетим хедер как элемент списка
 
-        val adapter = RecyclerFragmentAdapter { dataClick ->
-            Toast.makeText(context,"Мы супер ${dataClick.name}", Toast.LENGTH_SHORT).show()
-        }
+        /*привязываем интерфейсы кликабельности*/
+        val adapter = RecyclerFragmentAdapter(object : RecyclerFragmentAdapter.OnClickItemListener { //просто кликабельность
+            override fun onItemClick(data: Data) {
+                Toast.makeText(context, "Мы супер ${data.name}", Toast.LENGTH_SHORT).show()
+            }
+        }, object : RecyclerFragmentAdapter.OnStartDragListener{ //перетаскивание за рычаг
+            override fun onStartDrag(viewHolder: RecyclerView.ViewHolder) {
+                itemTouchHelper.startDrag(viewHolder)
+            }
+        })
 
+        /*сетим в адаптер listData*/
         adapter.setData(listData)
         binding.recyclerView.adapter = adapter
         //binding.recyclerView.setHasFixedSize(true)
 
         binding.recyclerActivityFAB.setOnClickListener {
             flag = !flag
-            if(flag){
-                    ObjectAnimator.ofFloat( binding.recyclerActivityFAB,View.ROTATION,0f,405f).setDuration(2000L).start()
-                    adapter.appendItem() //по кнопке генерируем
-            }else{
-                    ObjectAnimator.ofFloat( binding.recyclerActivityFAB,View.ROTATION,405f,0f).setDuration(2000L).start()
-                    adapter.appendItem()
+            if (flag) {
+                ObjectAnimator.ofFloat(binding.recyclerActivityFAB, View.ROTATION, 0f, 405f)
+                    .setDuration(2000L).start()
+                adapter.appendItem() //по кнопке генерируем
+            } else {
+                ObjectAnimator.ofFloat(binding.recyclerActivityFAB, View.ROTATION, 405f, 0f)
+                    .setDuration(2000L).start()
+                adapter.appendItem()
             }
             binding.recyclerView.smoothScrollToPosition(adapter.itemCount) //скролим к новым позициям в списке плавно
         }
+
+        /*состояние перетаскивания из коробки*/
+        //ItemTouchHelper(ItemTouchHelperCallback(adapter)).attachToRecyclerView(binding.recyclerView) // связываем ItemTouchHelper с adapter на все элементы
+        itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(adapter))
+        itemTouchHelper.attachToRecyclerView(binding.recyclerView)
     }
+
+    /*перетаскиваение элемента списка в recyclerview из коробки*/
+    class ItemTouchHelperCallback(val recyclerActivityAdapter: RecyclerFragmentAdapter):ItemTouchHelper.Callback(){
+
+        override fun getMovementFlags(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder
+        ): Int {
+            /*настраиваем как двигать можем элементы*/
+            val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
+            val swipeFlags = ItemTouchHelper.START or ItemTouchHelper.END
+            return makeMovementFlags(dragFlags,swipeFlags) //возвращаем функции
+        }
+
+        override fun onMove(
+            recyclerView: RecyclerView,
+            from: RecyclerView.ViewHolder,
+            to: RecyclerView.ViewHolder
+        ): Boolean {
+            recyclerActivityAdapter.onItemMove(from.adapterPosition,to.adapterPosition) //движение с одной позиции на другую передаем адаптеру
+            return true
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            recyclerActivityAdapter.onItemDismiss(viewHolder.adapterPosition) //по свайпу передаем удалении позиции
+        }
+
+        override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+            if(viewHolder is RecyclerFragmentAdapter.MarsViewHolder) //если viewHolder у нас Mars то делаем то то то..
+                if(actionState!=ItemTouchHelper.ACTION_STATE_IDLE) // бездействие состояние
+                    (viewHolder as RecyclerFragmentAdapter.MarsViewHolder).onItemSelected() //состоянрие нажатия
+        }
+
+        override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+            if(viewHolder is RecyclerFragmentAdapter.MarsViewHolder)
+                (viewHolder as RecyclerFragmentAdapter.MarsViewHolder).onItemClear() // очистка состояния в адаптере
+        }
+    }
+    /*перетаскиваение элемента списка в recyclerview*/
 
     override fun onDestroyView() {
         super.onDestroyView()
