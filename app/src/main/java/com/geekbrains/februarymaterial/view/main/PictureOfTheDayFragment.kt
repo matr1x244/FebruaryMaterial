@@ -10,11 +10,12 @@ import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.SpannedString
 import android.text.style.BulletSpan
+import android.text.style.DynamicDrawableSpan
 import android.text.style.ForegroundColorSpan
+import android.text.style.ImageSpan
 import android.util.Log
 import android.view.*
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -34,9 +35,7 @@ import com.geekbrains.februarymaterial.view.bottomNavigation.BottomNavigationDra
 import com.geekbrains.februarymaterial.view.chips.ChipsFragment
 import com.geekbrains.februarymaterial.viewmodel.PictureOfTheDayAppState
 import com.geekbrains.februarymaterial.viewmodel.PictureOfTheDayViewModel
-import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import kotlinx.coroutines.delay
 
 
 class PictureOfTheDayFragment : Fragment() {
@@ -107,7 +106,7 @@ class PictureOfTheDayFragment : Fragment() {
                 val spannedString  = SpannedString(spannableStringBuilderExplanation)
 
                 /*Меняем цвета по таймеру*/
-                val timer = object: CountDownTimer(10000, 1000) {
+                var timer = object: CountDownTimer(10000, 1000) {
                     override fun onTick(millisUntilFinished: Long) {
                         spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.color_blue_nasa_icon_transparent)),0, textDate.length,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем год
                         spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.red_200)),4, textDate.length,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем месяц
@@ -117,20 +116,25 @@ class PictureOfTheDayFragment : Fragment() {
                     override fun onFinish() {
                         spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.red_900)),0, textDate.length,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем год
                         spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.red_900)),4, textDate.length,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем месяц
-                        spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.red_900)),8, textDate.length,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем день
+                        spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.color_blue_nasa_icon)),8, textDate.length,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем день
                         binding.includedBsl.bottomSheetDate.text = spannableStringBuilderDate
                     }
                 }
                 timer.start()
 
-
 //                textExplanation?.split("\n")?.forEach { it.length } //находим по тексту перенос
 //                spannableStringBuilderExplanation.insert(1,"\n") // вставляем перенос на 4 символ
-                spannableStringBuilderExplanation.setSpan(BulletSpan(10,ContextCompat.getColor(requireContext(),R.color.red_200),20),0,1, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) // вставляем точку или перенос
+                spannableStringBuilderExplanation.setSpan(BulletSpan(10,ContextCompat.getColor(requireContext(),R.color.red_200),10),0,1, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) // вставляем точку или перенос
+
+                /*заменить симов "о" на картинку*/
+                spannableStringBuilderExplanation.indices.forEach {
+                    if(spannableStringBuilderExplanation[it]==('o')){ // заменить симов "о" на картинку
+                    spannableStringBuilderExplanation.setSpan(ImageSpan(requireContext(),
+                        R.drawable.swipe_indicator_active, DynamicDrawableSpan.ALIGN_BASELINE),it,it+1,SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
+                }}
+
                 binding.includedBsl.bottomSheetDescription.text = spannableStringBuilderExplanation
 
-
-                /*Урок 7ой работа с текстом*/
                 binding.imageView.load(pictureOfTheDayAppState.serverResponseData.url){
                     error(R.drawable.ic_load_error_vector)
                 }
