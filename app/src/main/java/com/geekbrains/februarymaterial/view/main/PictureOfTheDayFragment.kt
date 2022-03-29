@@ -3,9 +3,12 @@ package com.geekbrains.februarymaterial.view.main
 
 import android.animation.ObjectAnimator
 import android.content.Intent
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
+import android.os.Looper
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.SpannedString
@@ -16,9 +19,12 @@ import android.text.style.ImageSpan
 import android.util.Log
 import android.view.*
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.provider.FontRequest
+import androidx.core.provider.FontsContractCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -92,31 +98,83 @@ class PictureOfTheDayFragment : Fragment() {
                 binding.progressBarMain.visibility = View.GONE
                 binding.includedBsl.bottomSheetContainer.visibility = View.VISIBLE
                 /*СЕТИМ ДАННЫЕ*/
-               binding.includedBsl.bottomSheetDescriptionHeader.text = pictureOfTheDayAppState.serverResponseData.title
+                binding.includedBsl.bottomSheetDescriptionHeader.text =
+                    pictureOfTheDayAppState.serverResponseData.title
 //                binding.includedBsl.bottomSheetDescription.text = pictureOfTheDayAppState.serverResponseData.explanation
 //                binding.includedBsl.bottomSheetDate.text = pictureOfTheDayAppState.serverResponseData.date
-                binding.includedBsl.bottomSheetCopyright.text = pictureOfTheDayAppState.serverResponseData.copyright
+                binding.includedBsl.bottomSheetCopyright.text =
+                    pictureOfTheDayAppState.serverResponseData.copyright
 
                 /*Урок 7ой работа с текстом*/
                 val textDate = pictureOfTheDayAppState.serverResponseData.date
                 val textExplanation = pictureOfTheDayAppState.serverResponseData.explanation
-                val spannableStringBuilderDate  = SpannableStringBuilder(textDate)
-                val spannableStringBuilderExplanation  = SpannableStringBuilder(textExplanation)
-                val spannableString  = SpannableString(textExplanation)
-                val spannedString  = SpannedString(spannableStringBuilderExplanation)
+                var spannableStringBuilderDate = SpannableStringBuilder(textDate)
+                val spannableStringBuilderExplanation = SpannableStringBuilder(textExplanation)
+                val spannableString = SpannableString(textExplanation)
+                val spannedString = SpannedString(spannableStringBuilderExplanation)
+
+                binding.includedBsl.bottomSheetDate.setText(
+                    spannableStringBuilderDate,
+                    TextView.BufferType.EDITABLE
+                )
+                spannableStringBuilderDate =
+                    binding.includedBsl.bottomSheetDate.text as SpannableStringBuilder
 
                 /*Меняем цвета по таймеру*/
-                var timer = object: CountDownTimer(10000, 1000) {
+                var timer = object : CountDownTimer(10000, 1000) {
                     override fun onTick(millisUntilFinished: Long) {
-                        spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.color_blue_nasa_icon_transparent)),0, textDate.length,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем год
-                        spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.red_200)),4, textDate.length,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем месяц
-                        spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.black)),8, textDate.length,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем день
+                        spannableStringBuilderDate.setSpan(
+                            ForegroundColorSpan(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.color_blue_nasa_icon_transparent
+                                )
+                            ), 0, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+                        ) //закрашиваем год
+                        spannableStringBuilderDate.setSpan(
+                            ForegroundColorSpan(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.red_200
+                                )
+                            ), 4, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+                        ) //закрашиваем месяц
+                        spannableStringBuilderDate.setSpan(
+                            ForegroundColorSpan(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.black
+                                )
+                            ), 8, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+                        ) //закрашиваем день
                         binding.includedBsl.bottomSheetDate.text = spannableStringBuilderDate
                     }
+
                     override fun onFinish() {
-                        spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.red_900)),0, textDate.length,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем год
-                        spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.red_900)),4, textDate.length,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем месяц
-                        spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.color_blue_nasa_icon)),8, textDate.length,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем день
+                        spannableStringBuilderDate.setSpan(
+                            ForegroundColorSpan(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.red_900
+                                )
+                            ), 0, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+                        ) //закрашиваем год
+                        spannableStringBuilderDate.setSpan(
+                            ForegroundColorSpan(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.red_900
+                                )
+                            ), 4, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+                        ) //закрашиваем месяц
+                        spannableStringBuilderDate.setSpan(
+                            ForegroundColorSpan(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.color_blue_nasa_icon
+                                )
+                            ), 8, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+                        ) //закрашиваем день
                         binding.includedBsl.bottomSheetDate.text = spannableStringBuilderDate
                     }
                 }
@@ -124,16 +182,33 @@ class PictureOfTheDayFragment : Fragment() {
 
 //                textExplanation?.split("\n")?.forEach { it.length } //находим по тексту перенос
 //                spannableStringBuilderExplanation.insert(1,"\n") // вставляем перенос на 4 символ
-                spannableStringBuilderExplanation.setSpan(BulletSpan(10,ContextCompat.getColor(requireContext(),R.color.red_200),10),0,1, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) // вставляем точку или перенос
+                spannableStringBuilderExplanation.setSpan(
+                    BulletSpan(10, ContextCompat.getColor(requireContext(), R.color.red_200), 10), 0, 1, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+                ) // вставляем точку или перенос
 
                 /*заменить симов "о" на картинку*/
-                spannableStringBuilderExplanation.indices.forEach {
-                    if(spannableStringBuilderExplanation[it]==('o')){ // заменить симов "о" на картинку
-                    spannableStringBuilderExplanation.setSpan(ImageSpan(requireContext(),
-                        R.drawable.swipe_indicator_active, DynamicDrawableSpan.ALIGN_BASELINE),it,it+1,SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
-                }}
+//                spannableStringBuilderExplanation.indices.forEach {
+//                    if (spannableStringBuilderExplanation[it] == ('o')) { // заменить симов "о" на картинку
+//                        spannableStringBuilderExplanation.setSpan(ImageSpan(requireContext(), R.drawable.swipe_indicator_active, DynamicDrawableSpan.ALIGN_BASELINE), it, it + 1, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
+//                    }
+//                }
 
                 binding.includedBsl.bottomSheetDescription.text = spannableStringBuilderExplanation
+
+                /*далем подгрузку шрифта с гугла*/
+                val request = FontRequest(
+                    "com.google.android.gms.fonts", "com.google.android.gms",
+                    "Mouse Memoirs", R.array.com_google_android_gms_fonts_certs
+                )
+
+                val callback = object : FontsContractCompat.FontRequestCallback() {
+                    override fun onTypefaceRetrieved(typeface: Typeface?) {
+                        binding.includedBsl.bottomSheetDescription.typeface = typeface
+                        super.onTypefaceRetrieved(typeface)
+                    }
+                }
+                FontsContractCompat.requestFont(requireContext(), request, callback, Handler(Looper.myLooper()!!))
+                /*далем подгрузку шрифта с гугла*/
 
                 binding.imageView.load(pictureOfTheDayAppState.serverResponseData.url){
                     error(R.drawable.ic_load_error_vector)
