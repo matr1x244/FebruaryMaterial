@@ -123,14 +123,15 @@ class RecyclerFragment: Fragment() {
                 Pair(Data(0,"header"),false),
                 Pair(Data(1,"mars"),false),
                 Pair(Data(2,"mars"),false),
-                Pair(Data(3,"mars"),false)
+                Pair(Data(3,"mars"),false),
+                Pair(Data(4,"mars"),false)
             )
             true -> arrayListOf(
                 Pair(Data(0,"header"),false),
                 Pair(Data(1,"mars"),false),
                 Pair(Data(2,"jupiter"),false),
-                Pair(Data(2,"earth"),false),
-                Pair(Data(1,"mars"),false)
+                Pair(Data(3,"earth"),false),
+                Pair(Data(4,"mars"),false)
             )
         }
     }
