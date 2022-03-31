@@ -42,6 +42,9 @@ import com.geekbrains.februarymaterial.view.chips.ChipsFragment
 import com.geekbrains.februarymaterial.viewmodel.PictureOfTheDayAppState
 import com.geekbrains.februarymaterial.viewmodel.PictureOfTheDayViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import java.util.regex.Pattern
 
 
 class PictureOfTheDayFragment : Fragment() {
@@ -123,58 +126,16 @@ class PictureOfTheDayFragment : Fragment() {
                 /*Меняем цвета по таймеру*/
                 var timer = object : CountDownTimer(10000, 1000) {
                     override fun onTick(millisUntilFinished: Long) {
-                        spannableStringBuilderDate.setSpan(
-                            ForegroundColorSpan(
-                                ContextCompat.getColor(
-                                    requireContext(),
-                                    R.color.color_blue_nasa_icon_transparent
-                                )
-                            ), 0, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
-                        ) //закрашиваем год
-                        spannableStringBuilderDate.setSpan(
-                            ForegroundColorSpan(
-                                ContextCompat.getColor(
-                                    requireContext(),
-                                    R.color.red_200
-                                )
-                            ), 4, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
-                        ) //закрашиваем месяц
-                        spannableStringBuilderDate.setSpan(
-                            ForegroundColorSpan(
-                                ContextCompat.getColor(
-                                    requireContext(),
-                                    R.color.black
-                                )
-                            ), 8, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
-                        ) //закрашиваем день
+                        spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.color_blue_nasa_icon_transparent)), 0, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем год
+                        spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.red_200)), 4, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем месяц
+                        spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.black)), 8, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем день
                         binding.includedBsl.bottomSheetDate.text = spannableStringBuilderDate
                     }
 
                     override fun onFinish() {
-                        spannableStringBuilderDate.setSpan(
-                            ForegroundColorSpan(
-                                ContextCompat.getColor(
-                                    requireContext(),
-                                    R.color.red_900
-                                )
-                            ), 0, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
-                        ) //закрашиваем год
-                        spannableStringBuilderDate.setSpan(
-                            ForegroundColorSpan(
-                                ContextCompat.getColor(
-                                    requireContext(),
-                                    R.color.red_900
-                                )
-                            ), 4, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
-                        ) //закрашиваем месяц
-                        spannableStringBuilderDate.setSpan(
-                            ForegroundColorSpan(
-                                ContextCompat.getColor(
-                                    requireContext(),
-                                    R.color.color_blue_nasa_icon
-                                )
-                            ), 8, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
-                        ) //закрашиваем день
+                        spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.red_900)), 0, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем год
+                        spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.red_900)), 4, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем месяц
+                        spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.color_blue_nasa_icon)), 8, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем день
                         binding.includedBsl.bottomSheetDate.text = spannableStringBuilderDate
                     }
                 }
@@ -193,14 +154,11 @@ class PictureOfTheDayFragment : Fragment() {
 //                    }
 //                }
 
-                binding.includedBsl.bottomSheetDescription.text = spannableStringBuilderExplanation
-
                 /*далем подгрузку шрифта с гугла*/
                 val request = FontRequest(
                     "com.google.android.gms.fonts", "com.google.android.gms",
                     "Mouse Memoirs", R.array.com_google_android_gms_fonts_certs
                 )
-
                 val callback = object : FontsContractCompat.FontRequestCallback() {
                     override fun onTypefaceRetrieved(typeface: Typeface?) {
                         binding.includedBsl.bottomSheetDescription.typeface = typeface
@@ -209,9 +167,20 @@ class PictureOfTheDayFragment : Fragment() {
                 }
                 FontsContractCompat.requestFont(requireContext(), request, callback, Handler(Looper.myLooper()!!))
                 /*далем подгрузку шрифта с гугла*/
+                binding.includedBsl.bottomSheetDescription.text = spannableStringBuilderExplanation
 
-                binding.imageView.load(pictureOfTheDayAppState.serverResponseData.url){
-                    error(R.drawable.ic_load_error_vector)
+                /*VideoPlayer youtube*/
+                if (pictureOfTheDayAppState.serverResponseData.mediaType == "video") {
+                    //showAVideoUrl(pictureOfTheDayState.serverResponseData.url) //выводим ссылку
+                    binding.youtubePlayer.visibility = View.VISIBLE
+                    binding.imageView.visibility = View.GONE
+                    showNasaVideo(extractYTId(pictureOfTheDayAppState.serverResponseData.url))
+                }else{
+                    binding.youtubePlayer.visibility = View.GONE
+                    binding.imageView.visibility = View.VISIBLE
+                    binding.imageView.load(pictureOfTheDayAppState.serverResponseData.url){
+                        error(R.drawable.ic_load_error_vector)
+                    }
                 }
                 binding.imageView.setOnClickListener {
                     startActivity(Intent(Intent.ACTION_VIEW).apply {
@@ -219,8 +188,13 @@ class PictureOfTheDayFragment : Fragment() {
                     })
                 }
                 binding.includedBsl.image.load(pictureOfTheDayAppState.serverResponseData.url)
+                if(pictureOfTheDayAppState.serverResponseData.mediaType == "video"){
+                    binding.textViewDate.visibility = View.GONE
+                } else{
+                    binding.textViewDate.visibility = View.VISIBLE
+                    binding.textViewDate.text = pictureOfTheDayAppState.serverResponseData.date
+                }
                 binding.textViewDate.text = pictureOfTheDayAppState.serverResponseData.date
-                binding.imageView.visibility = View.VISIBLE
                 binding.cardViewMain.visibility = View.VISIBLE
                 binding.fragmentMain.showSnackBarNoAction(getString(R.string.success))
             }
@@ -265,8 +239,6 @@ class PictureOfTheDayFragment : Fragment() {
         binding.includedBsl.bottomSheetDate.visibility = View.GONE
         //binding.includedBsl.bottomSheetCopyright.visibility = View.GONE
         binding.includedBsl.image.visibility = View.GONE
-
-
 
         /*Кликаем и выдвигаем панель*/
         var fabSheet = false
@@ -364,6 +336,50 @@ class PictureOfTheDayFragment : Fragment() {
             isMainClick = !isMainClick
         }
     }*/
+
+    /*извлекаем и сетим ссылку для видео*/
+    fun extractYTId(ytUrl: String): String {
+        var viewId: String? = null
+        val pattern = Pattern.compile(
+            "^https?://.*(?:youtu.be/|v/|u/\\w/|embed/|watch?v=)([^#&?]*).*$",
+            Pattern.CASE_INSENSITIVE
+        )
+        val matcher = pattern.matcher(ytUrl)
+        if (matcher.matches()) {
+            viewId = matcher.group(1)
+        }
+        return viewId!!
+    }
+
+    /*ютуб плеер*/
+    private fun showNasaVideo(videoId: String) {
+        with(binding) {
+            lifecycle.addObserver(binding.youtubePlayer)
+            youtubePlayer.addYouTubePlayerListener(object :
+                AbstractYouTubePlayerListener() {
+                override fun onReady(youTubePlayer: YouTubePlayer) {
+                    youTubePlayer.loadVideo(videoId, 0f)
+                    //youTubePlayer.cueVideo(videoId, 0f)
+                    // youTubePlayer.pause()
+                }
+            })
+        }
+    }
+
+    /*извлекаем url на видео если не нужен проигрыватель*/
+    private fun showAVideoUrl(videoUrl: String) {
+        with(binding) {
+            imageView.visibility = View.GONE
+            videoOfTheDay.visibility = View.VISIBLE
+            videoOfTheDay.text = "Сегодня у нас без картинки дня, но есть  видео дня! " + "${videoUrl.toString()} \n кликни >ЗДЕСЬ< чтобы открыть в новом окне"
+            videoOfTheDay.setOnClickListener {
+                val i = Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(videoUrl)
+                }
+                startActivity(i)
+            }
+        }
+    }
 
     private fun wikipediaSearch() {
         /*Сетим в поиск введёный текст в поиск WIKIPEDIA*/
