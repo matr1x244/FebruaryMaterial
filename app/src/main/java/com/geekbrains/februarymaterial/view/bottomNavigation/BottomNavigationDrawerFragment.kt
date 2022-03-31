@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.geekbrains.februarymaterial.R
 import com.geekbrains.februarymaterial.databinding.BottomNavigationLayoutBinding
-import com.geekbrains.februarymaterial.view.animations.AnimationFragment
 import com.geekbrains.februarymaterial.view.layouts.LayoutActivity
 import com.geekbrains.februarymaterial.view.navigation.BottomNavigationActivity
 import com.geekbrains.februarymaterial.view.navigation.NavigationActivityTabs
@@ -47,7 +46,13 @@ class BottomNavigationDrawerFragment: BottomSheetDialogFragment() {
                     startActivity(Intent(requireContext(),LayoutActivity::class.java))
                 }
                 R.id.navigation_four->{
-                    requireActivity().supportFragmentManager.beginTransaction().replace(R.id.container_main_activity, RecyclerFragment.newInstance()).addToBackStack("").commit()
+                    requireActivity().supportFragmentManager.beginTransaction().setCustomAnimations(
+                        //анимация переходы
+                        R.anim.slide_in,
+                        R.anim.fade_out,
+                        R.anim.fade_in,
+                        R.anim.slide_out
+                    ).replace(R.id.container_main_activity, RecyclerFragment.newInstance()).addToBackStack("").commit()
                 }
             }
             true

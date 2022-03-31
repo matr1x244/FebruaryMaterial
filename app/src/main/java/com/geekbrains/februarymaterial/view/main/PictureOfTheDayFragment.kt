@@ -211,9 +211,21 @@ class PictureOfTheDayFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.app_bar_fav ->
-                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.container_main_activity, AnimationFragment.newInstance()).addToBackStack("").commit()
+                requireActivity().supportFragmentManager.beginTransaction().setCustomAnimations(
+                    //анимация переходы
+                    R.anim.slide_in,
+                    R.anim.fade_out,
+                    R.anim.fade_in,
+                    R.anim.slide_out
+                ).replace(R.id.container_main_activity, AnimationFragment.newInstance()).addToBackStack("").commit()
             R.id.app_bar_settings ->
-                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.container_main_activity, ChipsFragment.newInstance()).addToBackStack("").commit()
+                requireActivity().supportFragmentManager.beginTransaction().setCustomAnimations(
+                    //анимация переходы
+                    R.anim.slide_in,
+                    R.anim.fade_out,
+                    R.anim.fade_in,
+                    R.anim.slide_out
+                ).replace(R.id.container_main_activity, ChipsFragment.newInstance()).addToBackStack("").commit()
             android.R.id.home ->  {
                 BottomNavigationDrawerFragment().show(requireActivity().supportFragmentManager,"") //выдвигаем бургер меню
             }

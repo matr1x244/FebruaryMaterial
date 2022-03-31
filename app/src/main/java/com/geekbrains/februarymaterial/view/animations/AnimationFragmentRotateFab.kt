@@ -41,10 +41,22 @@ class AnimationFragmentRotateFab: Fragment() {
 
     private fun nextFragment(){
         binding.optionTwoContainer.setOnClickListener {
-             requireActivity().supportFragmentManager.beginTransaction().replace(R.id.container_main_activity, AnimationFragmentListAnimator.newInstance()).addToBackStack("").commit()
+             requireActivity().supportFragmentManager.beginTransaction().setCustomAnimations(
+                 //анимация переходы
+                 R.anim.slide_in,
+                 R.anim.fade_out,
+                 R.anim.fade_in,
+                 R.anim.slide_out
+             ).replace(R.id.container_main_activity, AnimationFragmentListAnimator.newInstance()).addToBackStack("").commit()
         }
         binding.optionOneContainer.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.container_main_activity,AnimationBonus.newInstance()).addToBackStack("").commit()
+            requireActivity().supportFragmentManager.beginTransaction().setCustomAnimations(
+                //анимация переходы
+                R.anim.slide_in,
+                R.anim.fade_out,
+                R.anim.fade_in,
+                R.anim.slide_out
+            ).replace(R.id.container_main_activity,AnimationBonus.newInstance()).addToBackStack("").commit()
         }
     }
 

@@ -54,6 +54,12 @@ class AnimationFragment: Fragment() {
             requireActivity()
                 .supportFragmentManager
                 .beginTransaction()
+                .setCustomAnimations(
+                    //анимация переходы
+                    R.anim.slide_in,
+                    R.anim.fade_out,
+                    R.anim.fade_in,
+                    R.anim.slide_out)
                 .replace(R.id.container_main_activity, AnimationFragmentRotateFab.newInstance())
                 .addToBackStack("null")
                 .commit()

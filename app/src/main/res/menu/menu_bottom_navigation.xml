@@ -3,16 +3,16 @@
     <group android:checkableBehavior="none">
         <item
             android:id="@+id/navigation_one"
-            android:icon="@drawable/ic_archive"
+            android:icon="@android:drawable/checkbox_on_background"
             android:title="Экран TABS (Activity)" />
         <item
             android:id="@+id/navigation_two"
-            android:icon="@drawable/ic_send"
+            android:icon="@android:drawable/checkbox_on_background"
             android:title="Экран BOTTOM NAVIGRATION (Activity)" />
         <item
             android:id="@+id/navigation_three"
-            android:icon="@drawable/ic_send"
-            android:title="Экран Layout (Activity)" />
+            android:icon="@android:drawable/checkbox_on_background"
+            android:title="Экраны Layout (Activity)" />
         <item
             android:id="@+id/navigation_four"
             android:icon="@drawable/ic_nasa_foreground_drawable"
