@@ -10,6 +10,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.geekbrains.februarymaterial.databinding.FragmentConstraintBinding
 import com.geekbrains.februarymaterial.viewmodel.PictureOfTheDayAppState
 import com.geekbrains.februarymaterial.viewmodel.PictureOfTheDayViewModel
+import smartdevelop.ir.eram.showcaseviewlib.GuideView
+import smartdevelop.ir.eram.showcaseviewlib.config.DismissType
+import smartdevelop.ir.eram.showcaseviewlib.config.Gravity
+import smartdevelop.ir.eram.showcaseviewlib.listener.GuideListener
 
 
 class ConstraintFragment : Fragment() {
@@ -41,7 +45,39 @@ class ConstraintFragment : Fragment() {
 
         testConstraint()
         testServer()
+        testHelpButton()
 
+    }
+
+    private fun testHelpButton() {
+        binding.btnTwo.setOnClickListener {
+            val builder = GuideView.Builder(requireContext())
+                .setTitle("Стиль не очень")
+                .setContentText("А это всего лишь подсказка")
+                .setGravity(Gravity.center)
+                .setDismissType(DismissType.anywhere)
+                .setTargetView(binding.btnTwo)
+                .setDismissType(DismissType.anywhere)
+                .setGuideListener(object : GuideListener {
+
+                    override fun onDismiss(view: View?) {
+                        val builder2 = GuideView.Builder(requireContext())
+                            .setTitle("Новый(material) подход")
+                            .setContentText("Нормальная подсказка")
+                            .setGravity(Gravity.center)
+                            .setDismissType(DismissType.targetView)
+                            .setTargetView(binding.btnOne)
+                            .setDismissType(DismissType.targetView)
+                            .setGuideListener(object : GuideListener {
+                                override fun onDismiss(view: View?) {
+                                    // сохранить в SP то что уже показали, и больше не надо
+                                }
+                            })
+                        builder2.build().show()
+                    }
+                })
+            builder.build().show()
+        }
     }
 
     private fun testServer() {
