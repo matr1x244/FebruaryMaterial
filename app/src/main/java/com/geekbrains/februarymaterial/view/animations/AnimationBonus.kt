@@ -17,29 +17,19 @@ import androidx.transition.TransitionManager
 import coil.load
 import com.geekbrains.februarymaterial.R
 import com.geekbrains.februarymaterial.databinding.FragmentAnimationsBonusStartBinding
+import com.geekbrains.februarymaterial.extensionFun.viewBindingFragment.ViewBindingFragment
 import com.geekbrains.februarymaterial.viewmodel.PictureOfTheDayAppState
 import com.geekbrains.februarymaterial.viewmodel.PictureOfTheDayViewModel
 
-class AnimationBonus: Fragment() {
+class AnimationBonus: ViewBindingFragment<FragmentAnimationsBonusStartBinding>(FragmentAnimationsBonusStartBinding::inflate) {
 
     companion object {
         fun newInstance() = AnimationBonus()
     }
 
-    private var _binding: FragmentAnimationsBonusStartBinding? = null
-    private val binding get() = _binding!!
-
     private val viewModel: PictureOfTheDayViewModel by lazy { ViewModelProvider(this).get(
         PictureOfTheDayViewModel::class.java) }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentAnimationsBonusStartBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

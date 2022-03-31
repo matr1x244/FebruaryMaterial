@@ -71,8 +71,8 @@ class RecyclerFragment: Fragment() {
             Pair(Data(id = 2,name = getString(R.string.earth), description =  "Дополнительный текст"), false),
             Pair(Data(id = 3,name = getString(R.string.mars), type = TYPE_MARS), false),
             Pair(Data(id = 4,name = getString(R.string.mars), type = TYPE_MARS), false)
-
             )
+
         listData.shuffle() //перемешиваем
         listData.add(0, Pair(Data(id = 0,name = getString(R.string.header), type = TYPE_HEADER), false)) //сетим хедер как элемент списка
 

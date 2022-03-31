@@ -35,14 +35,6 @@ class RecyclerFragmentAdapter (val onClickItemListener: OnClickItemListener,val 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
-            TYPE_EARTH -> {
-                val binding = FragmentRecyclerItemEarthBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-                EarthViewHolder(binding.root)
-            }
             TYPE_HEADER -> {
                 val binding = FragmentRecyclerItemHeaderBinding.inflate(
                     LayoutInflater.from(parent.context),
@@ -50,6 +42,14 @@ class RecyclerFragmentAdapter (val onClickItemListener: OnClickItemListener,val 
                     false
                 )
                 HeaderViewHolder(binding.root)
+            }
+            TYPE_EARTH -> {
+                val binding = FragmentRecyclerItemEarthBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                EarthViewHolder(binding.root)
             }
             else -> {
                 val binding = FragmentRecyclerItemMarsBinding.inflate(

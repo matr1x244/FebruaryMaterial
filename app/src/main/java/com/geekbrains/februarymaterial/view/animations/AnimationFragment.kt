@@ -15,38 +15,45 @@ import androidx.fragment.app.Fragment
 import androidx.transition.*
 import com.geekbrains.februarymaterial.R
 import com.geekbrains.februarymaterial.databinding.FragmentAnimationsBinding
+import com.geekbrains.februarymaterial.databinding.FragmentAnimationsBonusStartBinding
+import com.geekbrains.februarymaterial.extensionFun.viewBindingFragment.ViewBindingFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
-class AnimationFragment: Fragment() {
+class AnimationFragment: ViewBindingFragment<FragmentAnimationsBinding>(FragmentAnimationsBinding::inflate) {
 
     companion object {
         fun newInstance() = AnimationFragment()
     }
-
-    private var _binding: FragmentAnimationsBinding? = null
-    private val binding get() = _binding!!
-
     var flag = false
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentAnimationsBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //animationFade()
+        animationFade()
         //animationSlide()
         zoomImageClick()
         //buttonRace()
-        textRandomShuffle()
+        //textRandomShuffle()
         rotateFab()
+        buttonMaterial()
         nextFragment()
+    }
+
+    private fun buttonMaterial() {
+        binding.buttonMaterial.setOnClickListener {
+            requireActivity()
+                .supportFragmentManager
+                .beginTransaction()
+                .setCustomAnimations(
+                    //анимация переходы
+                    R.anim.slide_in,
+                    R.anim.fade_out,
+                    R.anim.fade_in,
+                    R.anim.slide_out)
+                .replace(R.id.container_main_activity, AnimationFragmentButtonMaterial.newInstance())
+                .addToBackStack("null")
+                .commit()
+        }
     }
 
     private fun nextFragment() {
@@ -161,8 +168,4 @@ class AnimationFragment: Fragment() {
          }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }

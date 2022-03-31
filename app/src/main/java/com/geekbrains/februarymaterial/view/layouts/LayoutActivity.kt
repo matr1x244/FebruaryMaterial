@@ -45,7 +45,13 @@ class LayoutActivity : AppCompatActivity() {
     }
 
     private fun navigationTo(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
+        supportFragmentManager.beginTransaction().setCustomAnimations(
+            //анимация переходы
+            R.anim.slide_in,
+            R.anim.fade_out,
+            R.anim.fade_in,
+            R.anim.slide_out)
+            .replace(R.id.container, fragment).commit()
     }
 
 }

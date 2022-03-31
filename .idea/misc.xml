@@ -20,12 +20,14 @@
         <entry key="..\:/Users/matrix/.AndroidStudio3.5/FebruaryMaterial/app/src/main/res/drawable/ic_search.xml" value="0.3135" />
         <entry key="..\:/Users/matrix/.AndroidStudio3.5/FebruaryMaterial/app/src/main/res/drawable/ic_send.xml" value="0.3135" />
         <entry key="..\:/Users/matrix/.AndroidStudio3.5/FebruaryMaterial/app/src/main/res/drawable/ic_system.xml" value="0.353" />
+        <entry key="..\:/Users/matrix/.AndroidStudio3.5/FebruaryMaterial/app/src/main/res/drawable/load_theme_background.xml" value="0.283" />
         <entry key="..\:/Users/matrix/.AndroidStudio3.5/FebruaryMaterial/app/src/main/res/drawable/swipe_indicator_active.xml" value="0.353" />
         <entry key="..\:/Users/matrix/.AndroidStudio3.5/FebruaryMaterial/app/src/main/res/drawable/swipe_indicator_passive.xml" value="0.353" />
         <entry key="..\:/Users/matrix/.AndroidStudio3.5/FebruaryMaterial/app/src/main/res/font/mouse_memoirs.xml" value="0.3848958333333333" />
         <entry key="..\:/Users/matrix/.AndroidStudio3.5/FebruaryMaterial/app/src/main/res/font/zilla_slab_highlight.xml" value="0.20625" />
         <entry key="..\:/Users/matrix/.AndroidStudio3.5/FebruaryMaterial/app/src/main/res/layout/activity_bottom_navigation.xml" value="0.3546875" />
         <entry key="..\:/Users/matrix/.AndroidStudio3.5/FebruaryMaterial/app/src/main/res/layout/activity_layout.xml" value="0.3546875" />
+        <entry key="..\:/Users/matrix/.AndroidStudio3.5/FebruaryMaterial/app/src/main/res/layout/activity_load_theme.xml" value="0.3546875" />
         <entry key="..\:/Users/matrix/.AndroidStudio3.5/FebruaryMaterial/app/src/main/res/layout/activity_navigation.xml" value="0.3546875" />
         <entry key="..\:/Users/matrix/.AndroidStudio3.5/FebruaryMaterial/app/src/main/res/layout/activity_navigation_tablayout_item_earth.xml" value="0.3546875" />
         <entry key="..\:/Users/matrix/.AndroidStudio3.5/FebruaryMaterial/app/src/main/res/layout/activity_navigation_tablayout_item_mars.xml" value="0.3546875" />
@@ -36,6 +38,7 @@
         <entry key="..\:/Users/matrix/.AndroidStudio3.5/FebruaryMaterial/app/src/main/res/layout/fragment_animations.xml" value="0.25" />
         <entry key="..\:/Users/matrix/.AndroidStudio3.5/FebruaryMaterial/app/src/main/res/layout/fragment_animations_bonus_end.xml" value="0.3546875" />
         <entry key="..\:/Users/matrix/.AndroidStudio3.5/FebruaryMaterial/app/src/main/res/layout/fragment_animations_bonus_start.xml" value="0.3546875" />
+        <entry key="..\:/Users/matrix/.AndroidStudio3.5/FebruaryMaterial/app/src/main/res/layout/fragment_animations_button_material.xml" value="0.3546875" />
         <entry key="..\:/Users/matrix/.AndroidStudio3.5/FebruaryMaterial/app/src/main/res/layout/fragment_animations_list_animator.xml" value="0.3546875" />
         <entry key="..\:/Users/matrix/.AndroidStudio3.5/FebruaryMaterial/app/src/main/res/layout/fragment_animations_rotate_fab.xml" value="0.3546875" />
         <entry key="..\:/Users/matrix/.AndroidStudio3.5/FebruaryMaterial/app/src/main/res/layout/fragment_chips.xml" value="0.33" />

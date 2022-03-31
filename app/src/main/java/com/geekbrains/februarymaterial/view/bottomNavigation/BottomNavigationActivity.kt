@@ -63,7 +63,13 @@ class BottomNavigationActivity : AppCompatActivity() {
     }
 
     private fun navigationTo(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(R.id.containerBottomNav, fragment).addToBackStack(null).commit()
+        supportFragmentManager.beginTransaction().setCustomAnimations(
+            //анимация переходы
+            R.anim.slide_in,
+            R.anim.fade_out,
+            R.anim.fade_in,
+            R.anim.slide_out
+        ).replace(R.id.containerBottomNav, fragment).addToBackStack(null).commit()
     }
 
     /*Сетим тему*/

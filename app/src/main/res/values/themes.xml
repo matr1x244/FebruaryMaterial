@@ -39,6 +39,13 @@
 
     </style>
 
+    <!--Тема кастом LoadTheme-->
+    <style name="MyLoadTheme" parent="Theme.FebruaryMaterial">
+        <item name="android:statusBarColor">?attr/color_blue_nasa_icon</item>
+
+        <item name="color_blue_nasa_icon">@color/color_blue_nasa_icon</item>
+    </style>
+
     <!--Тема кастом RED-->
     <style name="FebruaryMaterialRed" parent="Theme.FebruaryMaterial">
         <item name="android:statusBarColor">?attr/red_200</item>

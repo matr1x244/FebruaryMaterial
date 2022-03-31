@@ -13,9 +13,7 @@ import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.SpannedString
 import android.text.style.BulletSpan
-import android.text.style.DynamicDrawableSpan
 import android.text.style.ForegroundColorSpan
-import android.text.style.ImageSpan
 import android.util.Log
 import android.view.*
 import android.widget.ImageView
@@ -124,6 +122,14 @@ class PictureOfTheDayFragment : Fragment() {
                     binding.includedBsl.bottomSheetDate.text as SpannableStringBuilder
 
                 /*Меняем цвета по таймеру*/
+
+/*                Handler(Looper.getMainLooper()).postDelayed({
+                    spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.red_900)), 0, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем год
+                    spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.red_900)), 4, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем месяц
+                    spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.color_blue_nasa_icon)), 8, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем день
+                    binding.includedBsl.bottomSheetDate.text = spannableStringBuilderDate
+                }, 5000L)*/
+
                 var timer = object : CountDownTimer(10000, 1000) {
                     override fun onTick(millisUntilFinished: Long) {
                         spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.color_blue_nasa_icon_transparent)), 0, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем год
@@ -131,7 +137,6 @@ class PictureOfTheDayFragment : Fragment() {
                         spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.black)), 8, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем день
                         binding.includedBsl.bottomSheetDate.text = spannableStringBuilderDate
                     }
-
                     override fun onFinish() {
                         spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.red_900)), 0, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем год
                         spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.red_900)), 4, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем месяц
