@@ -42,6 +42,7 @@ import com.geekbrains.februarymaterial.viewmodel.PictureOfTheDayViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import kotlinx.coroutines.*
 import java.util.regex.Pattern
 
 
@@ -130,21 +131,26 @@ class PictureOfTheDayFragment : Fragment() {
                     binding.includedBsl.bottomSheetDate.text = spannableStringBuilderDate
                 }, 5000L)*/
 
-                var timer = object : CountDownTimer(10000, 1000) {
-                    override fun onTick(millisUntilFinished: Long) {
-                        spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.color_blue_nasa_icon_transparent)), 0, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем год
-                        spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.red_200)), 4, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем месяц
-                        spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.black)), 8, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем день
-                        binding.includedBsl.bottomSheetDate.text = spannableStringBuilderDate
+                CoroutineScope(Dispatchers.IO + SupervisorJob() + CoroutineExceptionHandler { _, throwable ->
+                    println("@@@ + $throwable")
+                }).launch {
+                    var timer = object : CountDownTimer(10000, 1000) {
+                        override fun onTick(millisUntilFinished: Long) {
+                            spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(),R.color.color_blue_nasa_icon_transparent)), 0, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем год
+                            spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.red_200)), 4, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем месяц
+                            spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.black)), 8, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем день
+                            binding.includedBsl.bottomSheetDate.text = spannableStringBuilderDate
+                        }
+                        override fun onFinish() {
+                            spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.red_900)), 0, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем год
+                            spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.red_900)), 4, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем месяц
+                            spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.color_blue_nasa_icon)), 8, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем день
+                            binding.includedBsl.bottomSheetDate.text = spannableStringBuilderDate
+                        }
                     }
-                    override fun onFinish() {
-                        spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.red_900)), 0, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем год
-                        spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.red_900)), 4, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем месяц
-                        spannableStringBuilderDate.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.color_blue_nasa_icon)), 8, textDate.length, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE) //закрашиваем день
-                        binding.includedBsl.bottomSheetDate.text = spannableStringBuilderDate
-                    }
+                    timer.start()
                 }
-                timer.start()
+
 
 //                textExplanation?.split("\n")?.forEach { it.length } //находим по тексту перенос
 //                spannableStringBuilderExplanation.insert(1,"\n") // вставляем перенос на 4 символ
@@ -435,7 +441,6 @@ class PictureOfTheDayFragment : Fragment() {
         binding.yesterdayChip.setOnClickListener {
             viewModel.sendServerYesterday()
         }*/
-
 
     override fun onDestroyView() {
         super.onDestroyView()

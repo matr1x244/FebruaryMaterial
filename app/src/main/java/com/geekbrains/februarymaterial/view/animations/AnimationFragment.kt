@@ -81,9 +81,9 @@ class AnimationFragment: ViewBindingFragment<FragmentAnimationsBinding>(Fragment
             fade.duration = 5000
             val changeBounds = ChangeBounds()
             changeBounds.duration = 2000
-            transition.ordering = TransitionSet.ORDERING_SEQUENTIAL
+//            transition.ordering = TransitionSet.ORDERING_SEQUENTIAL
             transition.addTransition(fade)
-            transition.addTransition(changeBounds)
+//            transition.addTransition(changeBounds)
             TransitionManager.beginDelayedTransition(binding.transitionsContainer,transition)
             flag = !flag
             binding.text.visibility =  if(flag) View.VISIBLE else View.GONE

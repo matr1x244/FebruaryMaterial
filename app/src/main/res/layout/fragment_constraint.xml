@@ -76,7 +76,7 @@
         app:autoSizeMaxTextSize="50sp"
         app:autoSizeMinTextSize="5sp"
         app:autoSizeTextType="uniform"
-        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintVertical_bias="0.75"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/barrierVirtical"
